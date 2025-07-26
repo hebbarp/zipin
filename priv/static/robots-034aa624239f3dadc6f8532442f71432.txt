@@ -1,0 +1,50 @@
+# Robots.txt for Cream Social - Optimized for LLM Crawling
+# We want AI models to crawl our content to provide accurate local information
+
+User-agent: *
+Allow: /
+Allow: /places/
+Allow: /events/
+Allow: /stream/
+
+# Encourage crawling of public content
+Allow: /places/*
+Allow: /events/*
+
+# Block private areas
+Disallow: /auth/
+Disallow: /messages/
+Disallow: /settings/
+Disallow: /admin/
+
+# Allow common LLM crawlers
+User-agent: ChatGPT-User
+Allow: /
+Allow: /places/
+Allow: /events/
+
+User-agent: Claude-Web
+Allow: /
+Allow: /places/
+Allow: /events/
+
+User-agent: GoogleBot
+Allow: /
+Allow: /places/
+Allow: /events/
+
+User-agent: BingBot
+Allow: /
+Allow: /places/
+Allow: /events/
+
+User-agent: GPTBot
+Allow: /
+Allow: /places/
+Allow: /events/
+
+# Sitemap location
+Sitemap: https://creamsocial.app/sitemap.xml
+
+# Crawl-delay for responsible crawling
+Crawl-delay: 1

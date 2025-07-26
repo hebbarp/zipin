@@ -1,0 +1,100 @@
+<div class="max-w-2xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Your Bookmarks</h1>
+
+    <%= if length(@bookmarks) == 0 do %>
+      <div class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No bookmarks</h3>
+        <p class="mt-1 text-sm text-gray-500">Start bookmarking posts you want to save for later.</p>
+        <div class="mt-6">
+          <.link
+            navigate={~p"/stream"}
+            class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+          >
+            Go to Stream
+          </.link>
+        </div>
+      </div>
+    <% else %>
+      <!-- Bookmarked Posts -->
+      <div class="space-y-6">
+        <%= for bookmark <- @bookmarks do %>
+          <article class="bg-white rounded-lg shadow">
+            <!-- Post Header -->
+            <div class="px-6 py-4 border-b border-gray-200">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                    <%= if bookmark.post.user.profile_pic do %>
+                      <img src={bookmark.post.user.profile_pic} alt={bookmark.post.user.full_name} class="w-10 h-10 rounded-full object-cover" />
+                    <% else %>
+                      <span class="text-gray-600 font-medium text-sm">
+                        <%= String.first(bookmark.post.user.full_name) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <div class="flex-1">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-semibold text-gray-900"><%= bookmark.post.user.full_name %></h3>
+                      <%= if bookmark.post.user.verified do %>
+                        <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                      <% end %>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                      <%= if bookmark.post.user.company, do: "#{bookmark.post.user.company} • " %><%= time_ago(bookmark.post.published_at) %>
+                    </p>
+                  </div>
+                </div>
+                <button
+                  phx-click="remove_bookmark"
+                  phx-value-post_id={bookmark.post.id}
+                  class="text-red-500 hover:text-red-700"
+                  title="Remove bookmark"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Post Content -->
+            <div class="px-6 py-4">
+              <p class="text-gray-900 whitespace-pre-wrap"><%= bookmark.post.content %></p>
+              
+              <%= if length(bookmark.post.media_paths) > 0 do %>
+                <div class="mt-4 grid grid-cols-2 gap-2">
+                  <%= for media_path <- bookmark.post.media_paths do %>
+                    <%= if String.ends_with?(media_path, [".mp4", ".mov", ".avi", ".webm"]) do %>
+                      <video controls class="rounded-lg w-full h-48">
+                        <source src={media_path} type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    <% else %>
+                      <img src={media_path} alt="Post media" class="rounded-lg object-cover w-full h-48" />
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Post Metadata -->
+            <div class="px-6 py-3 border-t border-gray-200 flex items-center justify-between text-sm text-gray-500">
+              <span>Bookmarked <%= time_ago(bookmark.inserted_at) %></span>
+              <div class="flex items-center space-x-4">
+                <span><%= bookmark.post.likes_count %> likes</span>
+                <span><%= bookmark.post.comments_count %> comments</span>
+              </div>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

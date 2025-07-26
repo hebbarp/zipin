@@ -1,0 +1,284 @@
+<div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-green-50">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <!-- Bangalore skyline background -->
+    <div class="absolute inset-0">
+      <img 
+        src="https://images.unsplash.com/photo-1596176530529-78163a4f9a97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" 
+        alt="Bangalore skyline" 
+        class="w-full h-full object-cover opacity-20"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-orange-400/30 via-white/50 to-green-400/30"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 py-12 sm:py-20">
+      <div class="text-center">
+        <!-- Indian Flag Emoji + Logo -->
+        <div class="mb-6">
+          <span class="text-6xl">🇮🇳</span>
+          <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-orange-600 via-slate-800 to-green-600 bg-clip-text text-transparent">
+            ZipIn
+          </h1>
+        </div>
+        
+        <!-- Tagline -->
+        <h2 class="text-2xl md:text-4xl font-semibold text-gray-800 mb-4">
+          Bangalore's Hyperlocal Social Platform
+        </h2>
+        
+        <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Discover places, join events, and connect with your neighborhood. 
+          <span class="font-semibold text-orange-600">Digital Independence from Generic Global Apps!</span>
+        </p>
+
+        <!-- Launch Date Banner -->
+        <div class="inline-flex items-center bg-gradient-to-r from-orange-100 to-green-100 rounded-full px-6 py-3 mb-8">
+          <span class="text-2xl mr-2">🚀</span>
+          <span class="font-bold text-lg text-gray-800">Launching August 15th - Independence Day!</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <button 
+            phx-click="explore_app" 
+            class="px-8 py-4 bg-gradient-to-r from-orange-500 to-green-500 text-white font-bold text-lg rounded-xl hover:shadow-lg transform hover:scale-105 transition-all"
+          >
+            🔥 Explore Bangalore Beta
+          </button>
+          
+          <form phx-submit="join_waitlist" class="flex">
+            <input 
+              name="email" 
+              type="email" 
+              placeholder="your@email.com" 
+              class="px-4 py-4 border-2 border-gray-300 rounded-l-xl flex-1 min-w-0"
+              required
+            />
+            <button 
+              type="submit" 
+              class="px-6 py-4 bg-blue-600 text-white font-bold rounded-r-xl hover:bg-blue-700"
+            >
+              Join Waitlist
+            </button>
+          </form>
+        </div>
+
+        <!-- Bangalore Live Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          <div class="bg-white/80 backdrop-blur rounded-lg p-4 text-center shadow-sm">
+            <div class="text-2xl font-bold text-orange-600"><%= @bangalore_stats.places %>+</div>
+            <div class="text-sm text-gray-600">Amazing Places</div>
+          </div>
+          <div class="bg-white/80 backdrop-blur rounded-lg p-4 text-center shadow-sm">
+            <div class="text-2xl font-bold text-green-600"><%= @bangalore_stats.events %>+</div>
+            <div class="text-sm text-gray-600">Live Events</div>
+          </div>
+          <div class="bg-white/80 backdrop-blur rounded-lg p-4 text-center shadow-sm">
+            <div class="text-2xl font-bold text-blue-600"><%= @bangalore_stats.areas %></div>
+            <div class="text-sm text-gray-600">Neighborhoods</div>
+          </div>
+          <div class="bg-white/80 backdrop-blur rounded-lg p-4 text-center shadow-sm">
+            <div class="text-2xl font-bold text-purple-600"><%= @bangalore_stats.users %>+</div>
+            <div class="text-sm text-gray-600">Local Heroes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Areas -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-12">Explore Bangalore by Neighborhood</h3>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <%= for area <- @featured_areas do %>
+          <div class="group cursor-pointer transition-transform hover:scale-105">
+            <div class="relative rounded-lg overflow-hidden mb-2">
+              <img 
+                src={area.image} 
+                alt={area.name}
+                class="w-full h-24 object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+              <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+              <div class="absolute top-2 right-2 text-2xl"><%= area.icon %></div>
+            </div>
+            <div class="text-center">
+              <div class="font-semibold text-gray-800"><%= area.name %></div>
+              <div class="text-sm text-gray-500"><%= area.vibe %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Preview -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-4">See What's Happening in Your Hood</h3>
+      <p class="text-center text-gray-600 mb-12">Real conversations from real Bangaloreans</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Sample Posts -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h4 class="font-bold mb-4 flex items-center">
+            <span class="mr-2">💬</span> Live Conversations
+          </h4>
+          
+          <%= for post <- @sample_posts do %>
+            <div class="border-b border-gray-100 pb-4 mb-4 last:border-b-0 last:mb-0">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-orange-400 to-green-400 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                  <%= String.first(post.author) %>
+                </div>
+                <div class="ml-2 flex-1">
+                  <div class="font-medium text-sm"><%= post.author %></div>
+                  <div class="text-xs text-gray-500"><%= post.area %> • <%= post.time %></div>
+                </div>
+              </div>
+              <p class="text-sm text-gray-700 mb-2"><%= post.content %></p>
+              <div class="flex items-center text-xs text-gray-500">
+                <span class="mr-3">❤️ <%= post.likes %></span>
+                <span>💬 <%= post.replies %></span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Sample Places -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h4 class="font-bold mb-4 flex items-center">
+            <span class="mr-2">📍</span> Amazing Places
+          </h4>
+          
+          <%= for place <- @sample_places do %>
+            <div class="flex items-center p-3 rounded-lg hover:bg-gray-50 mb-3 last:mb-0">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                <span class="text-lg">🏪</span>
+              </div>
+              <div class="flex-1">
+                <div class="font-medium text-sm"><%= place.name %></div>
+                <div class="text-xs text-gray-500"><%= place.area %></div>
+              </div>
+              <div class="text-yellow-500 text-sm">⭐ <%= place.rating %></div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Sample Events -->
+        <div class="bg-white rounded-xl p-6 shadow-sm">
+          <h4 class="font-bold mb-4 flex items-center">
+            <span class="mr-2">🎉</span> Happening Now
+          </h4>
+          
+          <%= for event <- @sample_events do %>
+            <div class="border border-gray-200 rounded-lg p-3 mb-3 last:mb-0">
+              <div class="font-medium text-sm mb-1"><%= event.name %></div>
+              <div class="text-xs text-gray-500 mb-2">
+                📍 <%= event.area %> • 📅 <%= event.date %>
+              </div>
+              <div class="text-xs text-green-600">👥 <%= event.attendees %> going</div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Different -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-12">Why ZipIn?</h3>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🏠</span>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Hyperlocal Focus</h4>
+          <p class="text-gray-600">Deep dive into YOUR neighborhood. Not generic global content.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">👥</span>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Real Community</h4>
+          <p class="text-gray-600">Connect with actual neighbors, not random strangers.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🚀</span>
+          </div>
+          <h4 class="font-bold text-lg mb-2">Local Business Love</h4>
+          <p class="text-gray-600">Showcase your place or event directly to your neighbors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon Cities -->
+  <section class="py-16 bg-gradient-to-r from-orange-50 to-green-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-center mb-4">Coming to Your City Soon!</h3>
+      <p class="text-center text-gray-600 mb-12">After conquering Bangalore, we're expanding across India</p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <%= for city <- @upcoming_cities do %>
+          <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+            <div class="font-bold text-lg text-gray-800"><%= city.name %></div>
+            <div class="text-sm text-gray-500"><%= city.eta %></div>
+            <div class="mt-2">
+              <%= if city.status == "next" do %>
+                <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">Next Up!</span>
+              <% else %>
+                <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">Planning</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-16 bg-gradient-to-r from-orange-600 to-green-600 text-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h3 class="text-3xl md:text-4xl font-bold mb-4">Ready to Discover Your Bangalore?</h3>
+      <p class="text-xl mb-8 opacity-90">Join the hyperlocal revolution this Independence Day!</p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button 
+          phx-click="explore_app" 
+          class="px-8 py-4 bg-white text-gray-800 font-bold text-lg rounded-xl hover:bg-gray-100 transition-colors"
+        >
+          🚀 Start Exploring Now
+        </button>
+        
+        <a 
+          href="https://twitter.com/intent/tweet?text=Excited%20for%20@zipin%20launching%20on%20Independence%20Day!%20Finally%20a%20hyperlocal%20social%20platform%20for%20Bangalore%20🇮🇳&hashtags=BangaloreSocial,IndependenceDay,Hyperlocal" 
+          target="_blank"
+          class="px-8 py-4 border-2 border-white text-white font-bold text-lg rounded-xl hover:bg-white hover:text-gray-800 transition-colors"
+        >
+          📢 Spread the Word
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <div class="mb-4">
+        <span class="text-2xl">🇮🇳</span>
+        <span class="text-xl font-bold ml-2">ZipIn</span>
+      </div>
+      <p class="text-gray-400 mb-4">Made with ❤️ for Bangalore. Expanding across India soon!</p>
+      <div class="text-sm text-gray-500">
+        <span>Launching August 15th, 2024 • Digital Independence Day</span>
+      </div>
+    </div>
+  </footer>
+</div>

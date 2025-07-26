@@ -1,0 +1,183 @@
+<%= if assigns[:current_user] do %>
+<header class="bg-white dark:bg-gray-800 shadow dark:shadow-gray-700/20 transition-colors duration-200" x-data="{ mobileMenuOpen: false }">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <.link navigate={~p"/stream"} class="flex items-center">
+          <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">ZipIn</h1>
+        </.link>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-4">
+        <.link navigate={~p"/stream"} class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+          Feed
+        </.link>
+        <.link navigate={~p"/bookmarks"} class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+          Bookmarks
+        </.link>
+        <.link navigate={~p"/messages"} class="relative text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+          Messages
+          <!-- Notification badge - will be shown when there are unread messages -->
+          <span class="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-red-600 rounded-full" id="message-badge" style="display: none;">
+            0
+          </span>
+        </.link>
+        <%= if @current_user do %>
+          <.link navigate={~p"/users/#{@current_user.id}/followers"} class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+            Followers
+          </.link>
+          <.link navigate={~p"/users/#{@current_user.id}/following"} class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+            Following
+          </.link>
+        <% end %>
+        <.link navigate={~p"/settings"} class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+          Settings
+        </.link>
+        
+        <!-- Dark Mode Toggle -->
+        <button 
+          onclick="toggleDarkMode()"
+          class="p-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white rounded-md transition-colors"
+          title="Toggle dark mode"
+        >
+          <!-- Moon icon for light mode -->
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <!-- Sun icon for dark mode -->
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+        
+        <.link href="/auth/logout" method="delete" class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+          Logout
+        </.link>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden flex items-center space-x-2">
+        <!-- Dark Mode Toggle for Mobile -->
+        <button 
+          onclick="toggleDarkMode()"
+          class="p-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white rounded-md transition-colors"
+          title="Toggle dark mode"
+        >
+          <!-- Moon icon for light mode -->
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <!-- Sun icon for dark mode -->
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+        
+        <button 
+          @click="mobileMenuOpen = !mobileMenuOpen"
+          type="button" 
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+          aria-controls="mobile-menu" 
+          x-bind:aria-expanded="mobileMenuOpen.toString()"
+        >
+          <span class="sr-only">Open main menu</span>
+          <!-- Hamburger icon when menu is closed -->
+          <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- X icon when menu is open -->
+          <svg x-show="mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div 
+      x-show="mobileMenuOpen" 
+      x-transition:enter="transition ease-out duration-100"
+      x-transition:enter-start="transform opacity-0 scale-95"
+      x-transition:enter-end="transform opacity-100 scale-100"
+      x-transition:leave="transition ease-in duration-75"
+      x-transition:leave-start="transform opacity-100 scale-100"
+      x-transition:leave-end="transform opacity-0 scale-95"
+      class="md:hidden"
+      id="mobile-menu"
+    >
+      <div class="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <a 
+          href={~p"/stream"} 
+          @click="mobileMenuOpen = false"
+          class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+        >
+          Feed
+        </a>
+        <a 
+          href={~p"/bookmarks"} 
+          @click="mobileMenuOpen = false"
+          class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+        >
+          Bookmarks
+        </a>
+        <a 
+          href={~p"/messages"} 
+          @click="mobileMenuOpen = false"
+          class="relative text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+        >
+          Messages
+          <!-- Notification badge for mobile -->
+          <span class="absolute top-1 right-3 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-red-600 rounded-full" id="message-badge-mobile" style="display: none;">
+            0
+          </span>
+        </a>
+        <%= if @current_user do %>
+          <a 
+            href={~p"/users/#{@current_user.id}/followers"} 
+            @click="mobileMenuOpen = false"
+            class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Followers
+          </a>
+          <a 
+            href={~p"/users/#{@current_user.id}/following"} 
+            @click="mobileMenuOpen = false"
+            class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Following
+          </a>
+        <% end %>
+        <a 
+          href={~p"/settings"} 
+          @click="mobileMenuOpen = false"
+          class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+        >
+          Settings
+        </a>
+        <a 
+          href="/auth/logout" 
+          data-method="delete"
+          @click="mobileMenuOpen = false"
+          class="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<% end %>
+<main class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+  <.flash_group flash={@flash} />
+  {@inner_content}
+  
+  <!-- Mobile Bottom Navigation -->
+  <%= if assigns[:current_user] do %>
+    <CreamSocialWeb.MobileNav.mobile_bottom_nav 
+      current_user={@current_user} 
+      current_page={assigns[:current_page] || "stream"}
+    />
+  <% end %>
+</main>

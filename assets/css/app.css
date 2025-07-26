@@ -1,0 +1,47 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+/* Fix page flicker on navigation */
+html {
+  color-scheme: light dark;
+}
+
+/* Prevent flash of unstyled content */
+.phx-loading * {
+  opacity: 0;
+  transition: opacity 0.1s ease-in;
+}
+
+/* Smooth transitions for LiveView navigation */
+.phx-connected {
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+
+.phx-disconnected {
+  opacity: 0.8;
+}
+
+/* Loading skeleton for page transitions */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+  background-size: 200px 100%;
+}

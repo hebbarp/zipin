@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    
+    <!-- Mobile-First Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- App Description -->
+    <meta name="description" content="ZipIn - Bangalore's hyperlocal social platform. Zip into your neighborhood, discover places, join events, connect locally." />
+    <meta name="keywords" content="Bangalore, hyperlocal, social, places, events, community, local" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ZipIn Bangalore - Hyperlocal Social Discovery" />
+    <meta property="og:description" content="Zip into Bangalore's best spots, events, and local community. Your hyperlocal social hub." />
+    <meta property="og:image" content="/images/og-image.png" />
+    <meta property="og:url" content="https://zipin.app" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ZipIn Bangalore - Hyperlocal Social Discovery" />
+    <meta name="twitter:description" content="Zip into your neighborhood's best spots and events." />
+    <meta name="twitter:image" content="/images/twitter-card.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <meta name="csrf-token" content={get_csrf_token()} />
+    
+    <.live_title default="ZipIn Bangalore - Hyperlocal Social Discovery">
+      {assigns[:page_title]}
+    </.live_title>
+    
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    
+    <!-- Google Fonts for Indian languages -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Kannada:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js for mobile interactions -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
+    
+    
+  </head>
+  <body class="bg-white dark:bg-gray-900" id="app-body" phx-hook="ThemeManager">
+    <div id="toast-container" phx-hook="Toast"></div>
+    {@inner_content}
+  </body>
+</html>

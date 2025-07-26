@@ -1,0 +1,1322 @@
+<div class="max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-6 lg:px-8 phx-connected">
+  <div class="mb-6">
+    <%= if @is_public do %>
+      <!-- Hero Vibe Section -->
+      <div class="bg-gradient-to-r from-blue-400 to-emerald-400 rounded-xl p-6 mb-6 text-white">
+        <div class="text-center">
+          <h1 class="text-3xl font-bold mb-2">🎆 Welcome to ZipIn Bangalore! 🎆</h1>
+          <p class="text-lg mb-4 opacity-90">Discover hidden gems • Meet like-minded people • Create viral content</p>
+          
+          <!-- Live Activity Counter -->
+          <div class="flex flex-wrap justify-center gap-4 text-sm bg-white/20 rounded-lg p-3 backdrop-blur-sm">
+            <span class="flex items-center">🔥 <strong class="ml-1"><%= length(@posts) %></strong> posts today</span>
+            <span class="flex items-center">🏪 <strong class="ml-1">40+</strong> places to explore</span>
+            <span class="flex items-center">📅 <strong class="ml-1">12</strong> events this week</span>
+            <span class="flex items-center">👥 <strong class="ml-1">500+</strong> Bangaloreans</span>
+          </div>
+          
+          <!-- Community CTA -->
+          <div class="mt-4">
+            <.link navigate={~p"/auth/login"} class="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg">
+              ✨ Join the Community
+            </.link>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">ZipIn - Your Local Social Hub</h1>
+    <% end %>
+
+    <!-- Public AI Tools Preview for non-authenticated users - MOVED TO TOP -->
+    <%= if !@current_user do %>
+      <!-- AI Content Studio Preview Section -->
+      <div class="bg-gradient-to-r from-orange-50 to-purple-50 dark:from-orange-900/20 dark:to-purple-900/20 rounded-lg shadow dark:shadow-gray-900/20 mb-6">
+        <div class="p-4">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="text-2xl">⚡</div>
+            <div>
+              <h3 class="font-semibold text-gray-900 dark:text-white flex items-center">
+                AI Content Studio
+                <span class="ml-2 text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded-full">Preview Mode</span>
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">🎯 Templates • 📈 Viral Predictor • ✨ Content Enhancement</p>
+            </div>
+          </div>
+          
+          <!-- AI Post Generator Component - Public Preview -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-4 mb-4">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                <svg class="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                AI Post Generator
+              </h4>
+              <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full">AI Powered</span>
+            </div>
+            <div class="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div class="text-4xl mb-3">🤖</div>
+              <h5 class="text-lg font-medium text-gray-900 dark:text-white mb-2">AI-Powered Content Creation</h5>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">Generate engaging posts about Bangalore with AI templates, trending topics, and local insights.</p>
+              <.link navigate={~p"/auth/login"} class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
+                </svg>
+                ✨ Sign In to Use AI Generator
+              </.link>
+            </div>
+          </div>
+      
+          <!-- Viral Score Predictor Component - Public Preview -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-4">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                <svg class="w-5 h-5 mr-2 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Viral Score Predictor
+              </h4>
+              <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full">AI Powered</span>
+            </div>
+            <div class="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div class="text-4xl mb-3">📈</div>
+              <h5 class="text-lg font-medium text-gray-900 dark:text-white mb-2">AI Viral Prediction</h5>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">Get instant feedback on your post's viral potential with AI analysis of engagement factors.</p>
+              <.link navigate={~p"/auth/login"} class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013 3v1" />
+                </svg>
+                📈 Sign In to Use Viral Predictor
+              </.link>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- 🎨 FULL-FEATURED POST FORM - All Features Restored! -->
+    <%= if @current_user do %>
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-4 sm:p-5 mb-5">
+      <.form for={@new_post_form} phx-submit="create_post" phx-change="validate" multipart class="space-y-4" id="new-post-form">
+        <div class="relative">
+          <.input
+            field={@new_post_form[:content]}
+            type="textarea"
+            placeholder="What's on your mind? (Type or speak...)"
+            rows="3"
+            class="w-full px-3 py-2 pr-32 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            phx-hook="DebugTextarea"
+            id="main-post-textarea"
+          />
+          
+          <!-- Language Selector -->
+          <div class="absolute top-2 right-24 flex items-center" x-data="{ langOpen: false }">
+            <button 
+              type="button"
+              @click="langOpen = !langOpen"
+              class="p-2 text-xs text-gray-500 hover:text-gray-700 border-r border-gray-300"
+              title="Select voice language"
+              id="lang-selector-btn"
+            >
+              <span id="current-lang">EN</span>
+              <svg class="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            <!-- Language Dropdown -->
+            <div 
+              x-show="langOpen" 
+              @click.away="langOpen = false"
+              x-transition
+              class="absolute top-10 right-0 bg-white border rounded-md shadow-lg z-10 py-1 min-w-24"
+              style="display: none;"
+            >
+              <button onclick="setVoiceLanguage('en-IN', 'EN')" class="block w-full text-left px-3 py-1 text-sm hover:bg-gray-100">🇮🇳 English</button>
+              <button onclick="setVoiceLanguage('hi-IN', 'हि')" class="block w-full text-left px-3 py-1 text-sm hover:bg-gray-100">🇮🇳 हिन्दी</button>
+              <button onclick="setVoiceLanguage('kn-IN', 'ಕ')" class="block w-full text-left px-3 py-1 text-sm hover:bg-gray-100">🇮🇳 ಕನ್ನಡ</button>
+            </div>
+          </div>
+          
+          <!-- Voice Recording Button -->
+          <button
+            type="button"
+            id="voice-record-btn"
+            class="absolute top-2 right-12 p-2 text-gray-400 hover:text-blue-500 transition-colors"
+            title="Voice to Post (Hold to speak)"
+            onmousedown="startVoiceRecordingSimple('main-post-textarea', this)"
+            onmouseup="stopVoiceRecordingSimple(this)"
+            onmouseleave="stopVoiceRecordingSimple(this)"
+            ontouchstart="startVoiceRecordingSimple('main-post-textarea', this)"
+            ontouchend="stopVoiceRecordingSimple(this)"
+          >
+            <!-- Microphone icon -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+            </svg>
+          </button>
+          
+          <!-- Magic Pen Button for AI Enhancement -->
+          <button
+            type="button"
+            phx-click="enhance_new_post"
+            phx-value-content=""
+            class="absolute top-2 right-2 p-2 text-gray-400 hover:text-orange-500 transition-colors disabled:opacity-50"
+            title="Enhance with AI (Ctrl+Shift+E)"
+            disabled={@ai_enhancing == :new_post}
+            onclick="this.setAttribute('phx-value-content', this.closest('.relative').querySelector('textarea').value)"
+          >
+            <%= if @ai_enhancing == :new_post do %>
+              <!-- Loading spinner -->
+              <svg class="animate-spin w-5 h-5 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            <% else %>
+              <!-- Magic wand icon -->
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 5l-1-1M21 3l-1-1M17 7l-1-1" />
+                <circle cx="18" cy="4" r="0.5" fill="currentColor" />
+                <circle cx="20" cy="2" r="0.5" fill="currentColor" />
+                <circle cx="16" cy="6" r="0.5" fill="currentColor" />
+              </svg>
+            <% end %>
+          </button>
+        </div>
+
+        <!-- Media Upload Component -->
+        <div class="mt-3">
+          <div class="flex items-center space-x-4">
+            <label for={@uploads.media.ref} class="cursor-pointer inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Add Photos/Videos
+            </label>
+            <.live_file_input upload={@uploads.media} class="hidden" />
+          </div>
+
+          <!-- Preview uploaded files -->
+          <div class="mt-4 grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4" :if={length(@uploads.media.entries) > 0}>
+            <%= for entry <- @uploads.media.entries do %>
+              <div class="relative">
+                <%= if String.contains?(entry.client_type, "image") do %>
+                  <.live_img_preview entry={entry} class="w-full h-32 object-cover rounded-lg" />
+                <% else %>
+                  <!-- Video preview placeholder -->
+                  <div class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <div class="text-center">
+                      <svg class="w-8 h-8 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                      </svg>
+                      <p class="text-xs text-gray-500 mt-1"><%= entry.client_name %></p>
+                    </div>
+                  </div>
+                <% end %>
+                <button
+                  type="button"
+                  phx-click="cancel-upload"
+                  phx-value-ref={entry.ref}
+                  class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                >
+                  ×
+                </button>
+                <!-- Progress bar -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gray-200 rounded-b-lg" :if={entry.progress < 100}>
+                  <div class="bg-blue-500 h-1 rounded-b-lg transition-all" style={"width: #{entry.progress}%"}></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Upload errors -->
+          <%= for err <- upload_errors(@uploads.media) do %>
+            <div class="mt-2 text-sm text-red-600">
+              <%= case err do %>
+                <% :too_large -> %>File too large (max 10MB)
+                <% :too_many_files -> %>Too many files (max 4)
+                <% :not_accepted -> %>Invalid file type
+                <% _ -> %>Upload error
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="flex justify-between items-center">
+          <div class="flex space-x-2">
+            <.input
+              field={@new_post_form[:visibility]}
+              type="select"
+              options={[{"Public", "public"}, {"Followers Only", "followers_only"}, {"Private", "private"}]}
+              class="px-3 py-1 border border-gray-300 rounded-md text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Post
+          </button>
+        </div>
+      </.form>
+    </div>
+    <% end %>
+
+    <!-- ⚡ AI TOOLS SUITE - Collapsed with Vibe Preview -->
+    <%= if @current_user do %>
+    <div class="bg-gradient-to-r from-orange-50 to-purple-50 dark:from-orange-900/20 dark:to-purple-900/20 rounded-lg shadow dark:shadow-gray-900/20 mb-6" x-data="{ expanded: false }">
+      <div 
+        @click="expanded = !expanded" 
+        class="flex items-center justify-between p-4 cursor-pointer hover:bg-gradient-to-r hover:from-orange-100 hover:to-purple-100 dark:hover:from-orange-800/30 dark:hover:to-purple-800/30 transition-all rounded-lg"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="text-2xl">⚡</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white flex items-center">
+              AI Content Studio
+              <span class="ml-2 text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded-full">Smart</span>
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">🎯 Templates • 📈 Viral Predictor • ✨ Content Enhancement</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded-full">AI Powered</span>
+          <svg class="w-5 h-5 text-gray-400 transition-transform" x-bind:class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+      <div x-show="expanded" x-transition class="border-t border-orange-200 dark:border-orange-700/50 bg-white/50 dark:bg-gray-800/50 rounded-b-lg">
+        <div class="p-4 space-y-4">
+          <!-- AI Post Generator Component -->
+          <.live_component
+            module={CreamSocialWeb.StreamLive.TemplatesComponent}
+            id="post-templates"
+          />
+          
+          <!-- Viral Score Predictor Component -->
+          <.live_component
+            module={CreamSocialWeb.StreamLive.ViralScoreComponent}
+            id="viral-predictor"
+            content={if @new_post_form && @new_post_form.data, do: @new_post_form.data.content || "", else: ""}
+          />
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+    <!-- 🌍 DISCOVERY SECTIONS - Enhanced with Community Vibe -->
+    
+    <!-- Places Discovery - Hot Spots with Community Energy -->
+    <div class="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg shadow dark:shadow-gray-900/20 mb-4" x-data="{ expanded: false }">
+      <div 
+        @click="expanded = !expanded" 
+        class="flex items-center justify-between p-4 cursor-pointer hover:bg-gradient-to-r hover:from-orange-100 hover:to-red-100 dark:hover:from-orange-800/30 dark:hover:to-red-800/30 transition-all rounded-lg"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="text-2xl">🏪</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white flex items-center">
+              Places Discovery
+              <span class="ml-2 text-xs bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded-full animate-pulse">🔥 Hot</span>
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">💫 Toit • The Humming Tree • 91springboard • +37 trending spots</p>
+            <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <span class="flex items-center">👥 <strong class="ml-1">248</strong> people exploring</span>
+              <span class="flex items-center">⭐ <strong class="ml-1">4.2</strong> avg rating</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded-full">40+ Places</span>
+          <svg class="w-5 h-5 text-gray-400 transition-transform" x-bind:class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+      <div x-show="expanded" x-transition class="border-t border-orange-200 dark:border-orange-700/50 bg-white/50 dark:bg-gray-800/50 rounded-b-lg">
+        <.live_component
+          module={CreamSocialWeb.StreamLive.PlacesComponent}
+          id="places-discovery"
+          current_user={@current_user}
+        />
+      </div>
+    </div>
+
+    <!-- Events & Meetups - This Week's Buzz -->
+    <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg shadow dark:shadow-gray-900/20 mb-4" x-data="{ expanded: false }">
+      <div 
+        @click="expanded = !expanded" 
+        class="flex items-center justify-between p-4 cursor-pointer hover:bg-gradient-to-r hover:from-green-100 hover:to-emerald-100 dark:hover:from-green-800/30 dark:hover:to-emerald-800/30 transition-all rounded-lg"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="text-2xl">📅</div>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white flex items-center">
+              Events & Meetups
+              <span class="ml-2 text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">⚡ This Week</span>
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">🎯 Tech meetup • Coffee cupping • Brewery crawl • +9 more events</p>
+            <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <span class="flex items-center">🎟️ <strong class="ml-1">156</strong> RSVPs</span>
+              <span class="flex items-center">📍 <strong class="ml-1">8</strong> areas covered</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 px-2 py-1 rounded-full">12 Events</span>
+          <svg class="w-5 h-5 text-gray-400 transition-transform" x-bind:class="{ 'rotate-180': expanded }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+      <div x-show="expanded" x-transition class="border-t border-green-200 dark:border-green-700/50 bg-white/50 dark:bg-gray-800/50 rounded-b-lg">
+        <.live_component
+          module={CreamSocialWeb.StreamLive.EventsComponent}
+          id="events-discovery"
+          current_user={@current_user}
+        />
+      </div>
+    </div>
+
+    <!-- 🌟 SOCIAL POSTS FEED - CENTER STAGE -->
+    <div class="space-y-4 sm:space-y-6 mb-8">
+      <%= if @posts == [] do %>
+        <div class="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow">
+          <div class="text-6xl mb-4">🎭</div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">No posts yet!</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">Be the first to share something amazing about Bangalore.</p>
+          <%= if @current_user do %>
+            <button 
+              onclick="document.getElementById('main-post-textarea').focus()" 
+              class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              ✨ Create Your First Post
+            </button>
+          <% end %>
+        </div>
+      <% else %>
+        <%= for post <- @posts do %>
+          <article class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 w-full">
+            <!-- Post Header -->
+            <div class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                    <%= if post.user.profile_pic do %>
+                      <img src={post.user.profile_pic} alt={post.user.full_name} class="w-10 h-10 rounded-full object-cover" />
+                    <% else %>
+                      <span class="text-gray-600 dark:text-gray-300 font-medium text-sm">
+                        <%= String.first(post.user.full_name) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center space-x-2">
+                      <h3 class="font-semibold text-gray-900 dark:text-white truncate"><%= post.user.full_name %></h3>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                      <span><%= time_ago(post.published_at) %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post Content -->
+            <div class="px-4 sm:px-6 py-4">
+              <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap break-words overflow-wrap-anywhere leading-relaxed text-left"><%= post.content %></p>
+            </div>
+
+            <!-- Post Actions -->
+            <div class="px-4 sm:px-6 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center space-x-6">
+              <button class="flex items-center space-x-2 text-gray-500 hover:text-red-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span><%= post.likes_count %></span>
+              </button>
+              <button class="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                <span><%= post.comments_count %></span>
+              </button>
+              <button class="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                </svg>
+                <span><%= post.shares_count %></span>
+              </button>
+            </div>
+          </article>
+        <% end %>
+      <% end %>
+    </div>
+
+    <!-- Posts Feed -->
+    <div class="space-y-4 sm:space-y-6">
+      <%= for post <- @posts do %>
+        <article class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 w-full">
+          <!-- Post Header -->
+          <div class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                  <%= if post.user.profile_pic do %>
+                    <img src={post.user.profile_pic} alt={post.user.full_name} class="w-10 h-10 rounded-full object-cover" />
+                  <% else %>
+                    <span class="text-gray-600 dark:text-gray-300 font-medium text-sm">
+                      <%= String.first(post.user.full_name) %>
+                    </span>
+                  <% end %>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center space-x-2">
+                    <h3 class="font-semibold text-gray-900 dark:text-white truncate"><%= post.user.full_name %></h3>
+                    <%= if post.user.verified do %>
+                      <svg class="w-4 h-4 text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                    <% end %>
+                  </div>
+                  <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span><%= if post.user.company, do: "#{post.user.company} • " %><%= time_ago(post.published_at) %></span>
+                  </div>
+                  <div class="flex items-center space-x-4 text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    <.link navigate={~p"/users/#{post.user.id}/followers"} class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                      <span class="font-medium"><%= post.follow_info.followers_count %></span> followers
+                    </.link>
+                    <.link navigate={~p"/users/#{post.user.id}/following"} class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                      <span class="font-medium"><%= post.follow_info.following_count %></span> following
+                    </.link>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Follow/Unfollow Button (for other users' posts) -->
+              <%= if @current_user && post.user.id != @current_user.id do %>
+                <button
+                  phx-click="toggle_follow"
+                  phx-value-user_id={post.user.id}
+                  class={"px-3 py-1 rounded-full text-sm font-medium transition-colors " <>
+                    if(post.follow_info.is_following,
+                      do: "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600",
+                      else: "bg-blue-600 text-white hover:bg-blue-700"
+                    )}
+                >
+                  <%= if post.follow_info.is_following do %>
+                    Following
+                  <% else %>
+                    Follow
+                  <% end %>
+                </button>
+              <% end %>
+              
+              <!-- Post Options (only for own posts) -->
+              <%= if @current_user && post.user.id == @current_user.id do %>
+                <div class="relative" x-data="{ open: false }">
+                  <button @click="open = !open" class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                    </svg>
+                  </button>
+                  
+                  <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 top-10 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10" style="display: none;">
+                    <div class="py-1">
+                      <button
+                        phx-click="edit_post"
+                        phx-value-post_id={post.id}
+                        @click="open = false"
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                      >
+                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        Edit Post
+                      </button>
+                      <button
+                        phx-click="delete_post"
+                        phx-value-post_id={post.id}
+                        @click="if(confirm('Are you sure you want to delete this post?')) { open = false; } else { $event.preventDefault(); }"
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center"
+                      >
+                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete Post
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Share Type Indicator -->
+          <%= if post.shared_post do %>
+            <div class="px-4 sm:px-6 py-2 bg-gray-50 border-b border-gray-200">
+              <div class="flex items-center space-x-2 text-sm text-gray-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <span>
+                  <%= if String.trim(post.content) == "", do: "#{post.user.full_name} reposted", else: "#{post.user.full_name} quoted" %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Post Content -->
+          <%= if @editing_post_id == post.id do %>
+            <!-- Edit Form -->
+            <div class="px-4 sm:px-6 py-4 bg-gray-50">
+              <.form for={@edit_form} phx-submit="update_post" phx-value-post_id={post.id} multipart class="space-y-4">
+                <div>
+                  <.input
+                    field={@edit_form[:content]}
+                    type="textarea"
+                    rows="3"
+                    placeholder="What's on your mind?"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <!-- Current Media -->
+                <%= if length(post.media_paths) > 0 do %>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Current Media</label>
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                      <%= for media_path <- post.media_paths do %>
+                        <%= if String.ends_with?(media_path, [".mp4", ".mov", ".avi", ".webm"]) do %>
+                          <video controls class="rounded w-full h-32">
+                            <source src={media_path} type="video/mp4">
+                          </video>
+                        <% else %>
+                          <img src={media_path} alt="Current media" class="rounded object-cover w-full h-32" />
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+
+                <!-- New Media Upload -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Add New Media (will replace current)</label>
+                  <div class="flex items-center space-x-4">
+                    <label for={@uploads.media.ref} class="cursor-pointer inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      Choose New Files
+                    </label>
+                    <.live_file_input upload={@uploads.media} class="hidden" />
+                  </div>
+
+                  <!-- Preview new uploads -->
+                  <div class="mt-4 grid grid-cols-2 gap-4" :if={length(@uploads.media.entries) > 0}>
+                    <%= for entry <- @uploads.media.entries do %>
+                      <div class="relative">
+                        <%= if String.contains?(entry.client_type, "image") do %>
+                          <.live_img_preview entry={entry} class="w-full h-32 object-cover rounded-lg" />
+                        <% else %>
+                          <div class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <div class="text-center">
+                              <svg class="w-8 h-8 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                              </svg>
+                              <p class="text-xs text-gray-500 mt-1"><%= entry.client_name %></p>
+                            </div>
+                          </div>
+                        <% end %>
+                        <button
+                          type="button"
+                          phx-click="cancel-upload"
+                          phx-value-ref={entry.ref}
+                          class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <button
+                    type="button"
+                    phx-click="cancel_edit"
+                    class="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Update Post
+                  </button>
+                </div>
+              </.form>
+            </div>
+          <% else %>
+            <!-- Regular Post Display -->
+            <div class="px-4 sm:px-6 py-4">
+              <!-- Quote content (if this is a quote share) -->
+              <%= if post.shared_post && post.content != "" do %>
+                <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap mb-4 break-words overflow-wrap-anywhere leading-relaxed text-left"><%= post.content %></p>
+              <% end %>
+              
+              <!-- Original post content (for regular posts) -->
+              <%= if !post.shared_post do %>
+                <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap break-words overflow-wrap-anywhere leading-relaxed text-left"><%= post.content %></p>
+              <% end %>
+              
+              <!-- Shared post display -->
+              <%= if post.shared_post do %>
+                <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700">
+                  <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                      <%= if post.shared_post.user.profile_pic do %>
+                        <img src={post.shared_post.user.profile_pic} alt={post.shared_post.user.full_name} class="w-8 h-8 rounded-full object-cover" />
+                      <% else %>
+                        <span class="text-gray-600 dark:text-gray-300 font-medium text-sm">
+                          <%= String.first(post.shared_post.user.full_name) %>
+                        </span>
+                      <% end %>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-sm text-gray-900 dark:text-white"><%= post.shared_post.user.full_name %></h4>
+                      <p class="text-xs text-gray-500 dark:text-gray-400"><%= time_ago(post.shared_post.published_at) %></p>
+                    </div>
+                  </div>
+                  <p class="text-gray-700 dark:text-gray-200 text-sm whitespace-pre-wrap break-words overflow-wrap-anywhere leading-relaxed text-left"><%= post.shared_post.content %></p>
+                  
+                  <%= if length(post.shared_post.media_paths) > 0 do %>
+                    <div class="mt-3 grid grid-cols-1 xs:grid-cols-2 gap-2">
+                      <%= for media_path <- post.shared_post.media_paths do %>
+                        <%= if String.ends_with?(media_path, [".mp4", ".mov", ".avi", ".webm"]) do %>
+                          <video controls class="rounded w-full h-32">
+                            <source src={media_path} type="video/mp4">
+                            Your browser does not support the video tag.
+                          </video>
+                        <% else %>
+                          <img src={media_path} alt="Shared post media" class="rounded object-cover w-full h-32" />
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              
+              <!-- Regular post media -->
+              <%= if !post.shared_post && length(post.media_paths) > 0 do %>
+                <div class="mt-4 grid grid-cols-1 xs:grid-cols-2 gap-2">
+                  <%= for media_path <- post.media_paths do %>
+                    <%= if String.ends_with?(media_path, [".mp4", ".mov", ".avi", ".webm"]) do %>
+                      <video controls class="rounded-lg w-full h-48">
+                        <source src={media_path} type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                    <% else %>
+                      <img src={media_path} alt="Post media" class="rounded-lg object-cover w-full h-48" />
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+              
+              <!-- Link Previews -->
+              <%= if !post.shared_post do %>
+                <.live_component 
+                  module={CreamSocialWeb.LinkPreviewComponent} 
+                  id={"link-preview-#{post.id}"}
+                  link_previews={post.link_previews || []}
+                />
+              <% end %>
+
+              <!-- View Conversation Link (only if there are replies) -->
+              <%= if length(post.replies) > 0 do %>
+                <div class="mt-3">
+                  <.link
+                    navigate={~p"/stream/#{post.id}"}
+                    class="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    View <%= length(post.replies) %> <%= if length(post.replies) == 1, do: "reply", else: "replies" %>
+                  </.link>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <!-- Post Actions -->
+          <div class="px-4 sm:px-6 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <div class="flex items-center space-x-4 sm:space-x-6">
+              <button
+                phx-click="toggle_like"
+                phx-value-post_id={post.id}
+                class="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-red-500 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <span class="text-sm"><%= post.likes_count %></span>
+              </button>
+
+              <button 
+                phx-click="toggle_reply" 
+                phx-value-post_id={to_string(post.id)}
+                class="flex items-center space-x-2 text-gray-500 hover:text-blue-500 transition-colors"
+                type="button"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.001 8.001 0 01-7.227-4.612 6.729 6.729 0 000-6.776A8.001 8.001 0 0121 12z" />
+                </svg>
+                <span class="text-sm"><%= length(post.replies) %></span>
+              </button>
+
+              <!-- Share Button with Dropdown -->
+              <div class="relative" x-data="{ open: false }">
+                <button 
+                  @click="open = !open"
+                  class="flex items-center space-x-2 text-gray-500 hover:text-green-500 transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                  </svg>
+                  <span class="text-sm"><%= post.shares_count %></span>
+                </button>
+                
+                <!-- Share Dropdown Menu -->
+                <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute bottom-full left-0 mb-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10" style="display: none;">
+                  <div class="py-1">
+                    <button
+                      phx-click="set_share_type"
+                      phx-value-type="repost"
+                      phx-value-post_id={post.id}
+                      @click="open = false"
+                      class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                    >
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Repost
+                    </button>
+                    <button
+                      phx-click="toggle_share"
+                      phx-value-post_id={post.id}
+                      @click="open = false"
+                      class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                    >
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.001 8.001 0 01-7.227-4.612 6.729 6.729 0 000-6.776A8.001 8.001 0 0121 12z" />
+                      </svg>
+                      Quote Post
+                    </button>
+                    <button
+                      phx-click="copy_link"
+                      phx-value-post_id={post.id}
+                      @click="open = false"
+                      class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                    >
+                      <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                      Copy Link
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <%= if @current_user && post.user.id != @current_user.id do %>
+                <.link
+                  navigate={~p"/messages/#{post.user.id}"}
+                  class="flex items-center space-x-2 text-gray-500 hover:text-purple-500 transition-colors"
+                >
+                  <svg class="w-5 h-5 transform rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                  <span class="text-sm">Message</span>
+                </.link>
+              <% end %>
+            </div>
+
+            <button
+              phx-click="toggle_bookmark"
+              phx-value-post_id={post.id}
+              class="text-gray-500 hover:text-yellow-500 transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Reply Form (conditional) -->
+          <%= if @reply_to_post_id == post.id do %>
+            <div class="px-4 sm:px-6 py-4 border-t border-gray-200 bg-gray-50">
+              <.form for={@reply_form} phx-submit="create_reply" phx-change="validate_reply" phx-value-post_id={post.id} multipart class="space-y-3">
+                <div class="relative">
+                  <.input
+                    field={@reply_form[:content]}
+                    type="textarea"
+                    placeholder="Write a reply..."
+                    rows="3"
+                    class="w-full px-3 py-2 pr-12 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <!-- Magic Pen Button for Reply -->
+                  <button
+                    type="button"
+                    phx-click="enhance_reply"
+                    phx-value-post_id={post.id}
+                    phx-value-content=""
+                    class="absolute top-2 right-2 p-2 text-gray-400 hover:text-orange-500 transition-colors disabled:opacity-50"
+                    title="Enhance with AI (Ctrl+Shift+E)"
+                    disabled={@ai_enhancing == "reply_#{post.id}"}
+                    onclick="this.setAttribute('phx-value-content', this.closest('.relative').querySelector('textarea').value)"
+                  >
+                    <%= if @ai_enhancing == "reply_#{post.id}" do %>
+                      <!-- Loading spinner -->
+                      <svg class="animate-spin w-5 h-5 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    <% else %>
+                      <!-- Magic wand icon -->
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 5l-1-1M21 3l-1-1M17 7l-1-1" />
+                        <circle cx="18" cy="4" r="0.5" fill="currentColor" />
+                        <circle cx="20" cy="2" r="0.5" fill="currentColor" />
+                        <circle cx="16" cy="6" r="0.5" fill="currentColor" />
+                      </svg>
+                    <% end %>
+                  </button>
+                </div>
+
+                <!-- Reply Media Upload -->
+                <div class="mt-3">
+                  <div class="flex items-center space-x-3">
+                    <label for={@uploads.reply_media.ref} class="cursor-pointer inline-flex items-center px-2 py-1 border border-gray-300 rounded text-xs font-medium text-gray-600 bg-white hover:bg-gray-50">
+                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      Add Media
+                    </label>
+                    <.live_file_input upload={@uploads.reply_media} class="hidden" />
+                  </div>
+
+                  <!-- Preview uploaded files for reply -->
+                  <%= if length(@uploads.reply_media.entries) > 0 do %>
+                    <div class="mt-2 grid grid-cols-2 gap-2">
+                      <%= for entry <- @uploads.reply_media.entries do %>
+                        <div class="relative">
+                          <%= if String.contains?(entry.client_type || "", "image") do %>
+                            <.live_img_preview entry={entry} class="w-full h-20 object-cover rounded" />
+                          <% else %>
+                            <!-- Video preview placeholder -->
+                            <div class="w-full h-20 bg-gray-100 rounded flex items-center justify-center">
+                              <div class="text-center">
+                                <svg class="w-6 h-6 mx-auto text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                                </svg>
+                                <p class="text-xs text-gray-500 mt-1"><%= String.slice(entry.client_name, 0..15) %></p>
+                              </div>
+                            </div>
+                          <% end %>
+                        <button
+                          type="button"
+                          phx-click="cancel-reply-upload"
+                          phx-value-ref={entry.ref}
+                          class="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                        >
+                          ×
+                        </button>
+                        <!-- Progress bar -->
+                        <%= if entry.progress < 100 do %>
+                          <div class="absolute bottom-0 left-0 right-0 bg-gray-200 rounded-b">
+                            <div class="bg-blue-500 h-1 rounded-b transition-all" style={"width: #{entry.progress}%"}></div>
+                          </div>
+                        <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <!-- Upload errors for reply -->
+                  <%= for err <- upload_errors(@uploads.reply_media) do %>
+                    <div class="mt-1 text-xs text-red-600">
+                      <%= case err do %>
+                        <% :too_large -> %>File too large (max 10MB)
+                        <% :too_many_files -> %>Too many files (max 4)
+                        <% :not_accepted -> %>Invalid file type
+                        <% _ -> %>Upload error
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <button
+                    type="button"
+                    phx-click="toggle_reply"
+                    phx-value-post_id={post.id}
+                    class="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    Reply
+                  </button>
+                </div>
+              </.form>
+            </div>
+          <% end %>
+
+          <!-- Quote Share Form (conditional) -->
+          <%= if @sharing_post_id == post.id and @share_type == nil do %>
+            <div class="px-4 sm:px-6 py-4 border-t border-gray-200 bg-green-50">
+              <.form for={@share_form} phx-submit="share_post" phx-value-post_id={post.id} class="space-y-3">
+                <div class="relative">
+                  <.input
+                    field={@share_form[:content]}
+                    type="textarea"
+                    placeholder="Add your thoughts about this post..."
+                    rows="3"
+                    class="w-full px-3 py-2 pr-12 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  />
+                  <!-- Magic Pen Button -->
+                  <button
+                    type="button"
+                    phx-click="enhance_message"
+                    phx-value-post_id={post.id}
+                    phx-value-content=""
+                    class="absolute top-2 right-2 p-2 text-gray-400 hover:text-orange-500 transition-colors disabled:opacity-50"
+                    title="Enhance with AI (Ctrl+Shift+E)"
+                    disabled={@ai_enhancing == post.id}
+                    onclick="this.setAttribute('phx-value-content', this.closest('.relative').querySelector('textarea').value)"
+                  >
+                    <%= if @ai_enhancing == post.id do %>
+                      <!-- Loading spinner -->
+                      <svg class="animate-spin w-5 h-5 text-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    <% else %>
+                      <!-- Magic wand icon -->
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 5l-1-1M21 3l-1-1M17 7l-1-1" />
+                        <circle cx="18" cy="4" r="0.5" fill="currentColor" />
+                        <circle cx="20" cy="2" r="0.5" fill="currentColor" />
+                        <circle cx="16" cy="6" r="0.5" fill="currentColor" />
+                      </svg>
+                    <% end %>
+                  </button>
+                </div>
+
+                <!-- Show original post preview -->
+                <div class="p-3 bg-white border-l-4 border-green-200 rounded">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <div class="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center">
+                      <%= if post.user.profile_pic do %>
+                        <img src={post.user.profile_pic} alt={post.user.full_name} class="w-6 h-6 rounded-full object-cover" />
+                      <% else %>
+                        <span class="text-gray-600 font-medium text-xs">
+                          <%= String.first(post.user.full_name) %>
+                        </span>
+                      <% end %>
+                    </div>
+                    <span class="text-sm font-medium text-gray-900"><%= post.user.full_name %></span>
+                  </div>
+                  <p class="text-sm text-gray-700 line-clamp-3"><%= post.content %></p>
+                </div>
+
+                <div class="flex justify-between items-center">
+                  <button
+                    type="button"
+                    phx-click="toggle_share"
+                    phx-value-post_id={post.id}
+                    class="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    phx-click="set_share_type"
+                    phx-value-type="quote"
+                    phx-value-post_id={post.id}
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  >
+                    Quote Post
+                  </button>
+                </div>
+              </.form>
+            </div>
+          <% end %>
+        </article>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener("phx:clear-form", (e) => {
+    const form = document.getElementById("new-post-form");
+    if (form) {
+      const textarea = form.querySelector("textarea");
+      if (textarea) {
+        textarea.value = "";
+      }
+    }
+  });
+
+  // Simple Voice Recording Functions
+  let recognition = null;
+  let isRecording = false;
+  let currentTextarea = null;
+  let currentButton = null;
+  let currentLanguage = 'en-IN'; // Default to English (India)
+  let accumulatedText = ''; // Store accumulated speech text
+
+  // Language configurations with proper script support
+  const languageConfig = {
+    'en-IN': {
+      code: 'en-IN',
+      name: 'English',
+      placeholder: 'What\'s on your mind? (Type or speak...)',
+      listening: '🎤 Listening in English... (Keep holding button)',
+      direction: 'ltr'
+    },
+    'hi-IN': {
+      code: 'hi-IN',
+      name: 'हिन्दी',
+      placeholder: 'आपके मन में क्या है? (टाइप करें या बोलें...)',
+      listening: '🎤 हिन्दी में सुन रहे हैं... (बटन दबाए रखें)',
+      direction: 'ltr'
+    },
+    'kn-IN': {
+      code: 'kn-IN',
+      name: 'ಕನ್ನಡ',
+      placeholder: 'ನಿಮ್ಮ ಮನಸ್ಸಿನಲ್ಲಿ ಏನಿದೆ? (ಟೈಪ್ ಮಾಡಿ ಅಥವಾ ಮಾತನಾಡಿ...)',
+      listening: '🎤 ಕನ್ನಡದಲ್ಲಿ ಆಲಿಸುತ್ತಿದ್ದೇವೆ... (ಬಟನ್ ಒತ್ತಿ ಹಿಡಿಯಿರಿ)',
+      direction: 'ltr'
+    }
+  };
+
+  function setVoiceLanguage(langCode, displayCode) {
+    currentLanguage = langCode;
+    document.getElementById('current-lang').textContent = displayCode;
+    
+    // Update textarea placeholder
+    const config = languageConfig[langCode];
+    const textarea = document.getElementById('main-post-textarea');
+    if (textarea && config) {
+      textarea.placeholder = config.placeholder;
+      textarea.dir = config.direction;
+      // Set font family for better native script rendering
+      if (langCode === 'hi-IN') {
+        textarea.style.fontFamily = '"Noto Sans Devanagari", "Arial Unicode MS", Arial, sans-serif';
+      } else if (langCode === 'kn-IN') {
+        textarea.style.fontFamily = '"Noto Sans Kannada", "Arial Unicode MS", Arial, sans-serif';
+      } else {
+        textarea.style.fontFamily = '';
+      }
+    }
+    
+    console.log('Voice language set to:', langCode, config.name);
+  }
+
+  function startVoiceRecordingSimple(textareaId, button) {
+    if (isRecording) return;
+
+    currentTextarea = document.getElementById(textareaId);
+    currentButton = button;
+    if (!currentTextarea) return;
+
+    // Check if speech recognition is supported
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Voice recording not supported in your browser. Please try Chrome or Edge.');
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    
+    // Set up recognition with current language
+    recognition.lang = currentLanguage;
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onstart = function() {
+      console.log('Voice recording started in', currentLanguage);
+      isRecording = true;
+      
+      // Store existing text in textarea to preserve it
+      accumulatedText = currentTextarea.value || '';
+      
+      // Update placeholder with language-specific text
+      const config = languageConfig[currentLanguage];
+      currentTextarea.placeholder = config ? config.listening : "🎤 Listening... (Keep holding button and speak)";
+      
+      // Change button appearance
+      if (currentButton) {
+        currentButton.classList.add('bg-red-100', 'text-red-500');
+        const svg = currentButton.querySelector('svg');
+        if (svg) svg.classList.add('animate-pulse');
+      }
+    };
+
+    recognition.onresult = function(event) {
+      let finalTranscript = '';
+      let interimTranscript = '';
+      
+      // Process all results to separate final vs interim
+      for (let i = 0; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + ' ';
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      if (currentTextarea) {
+        // Build the complete text: existing + final + interim
+        let displayText = accumulatedText;
+        
+        if (finalTranscript) {
+          // Add final transcripts to accumulated text (with space separation)
+          accumulatedText += (accumulatedText ? ' ' : '') + finalTranscript.trim();
+          displayText = accumulatedText;
+        }
+        
+        // Show interim results temporarily
+        if (interimTranscript) {
+          displayText += (displayText ? ' ' : '') + interimTranscript;
+        }
+        
+        // Update textarea
+        currentTextarea.value = displayText;
+        // Trigger input event for LiveView
+        currentTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    };
+
+    recognition.onerror = function(event) {
+      console.error('Speech recognition error:', event.error);
+      stopVoiceRecordingSimple();
+      if (event.error === 'not-allowed') {
+        alert('Please allow microphone access to use voice recording.');
+      }
+    };
+
+    recognition.onend = function() {
+      stopVoiceRecordingSimple();
+    };
+
+    // Start recording
+    try {
+      recognition.start();
+    } catch (error) {
+      console.error('Failed to start recognition:', error);
+      alert('Failed to start voice recording. Please try again.');
+      stopVoiceRecordingSimple();
+    }
+  }
+
+  function stopVoiceRecordingSimple(button) {
+    if (recognition && isRecording) {
+      recognition.stop();
+      recognition = null;
+    }
+    
+    isRecording = false;
+    
+    // Finalize the accumulated text in the textarea
+    if (currentTextarea && accumulatedText) {
+      currentTextarea.value = accumulatedText;
+      currentTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+    
+    // Reset accumulated text for next recording session
+    accumulatedText = '';
+    
+    if (currentTextarea) {
+      const config = languageConfig[currentLanguage];
+      currentTextarea.placeholder = config ? config.placeholder : "What's on your mind? (Type or speak...)";
+    }
+    
+    // Reset button appearance
+    if (currentButton) {
+      currentButton.classList.remove('bg-red-100', 'text-red-500');
+      const svg = currentButton.querySelector('svg');
+      if (svg) svg.classList.remove('animate-pulse');
+    }
+    
+    currentTextarea = null;
+    currentButton = null;
+  }
+
+  // Keyboard shortcuts for AI enhancement
+  document.addEventListener('keydown', function(e) {
+    // Ctrl+Shift+E (Windows/Linux) or Cmd+Shift+E (Mac) for AI enhancement
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'E') {
+      e.preventDefault();
+      const activeElement = document.activeElement;
+      
+      // Check if focused on main post textarea
+      if (activeElement && activeElement.name === 'post[content]') {
+        const button = activeElement.closest('.relative').querySelector('button[phx-click="enhance_new_post"]');
+        if (button && activeElement.value.trim()) {
+          button.setAttribute('phx-value-content', activeElement.value);
+          button.click();
+        }
+      }
+      // Check if focused on share textarea
+      else if (activeElement && activeElement.name === 'share[content]') {
+        const button = activeElement.closest('.relative').querySelector('button[phx-click="enhance_message"]');
+        if (button && activeElement.value.trim()) {
+          button.setAttribute('phx-value-content', activeElement.value);
+          button.click();
+        }
+      }
+      // Check if focused on reply textarea
+      else if (activeElement && activeElement.name === 'reply[content]') {
+        const button = activeElement.closest('.relative').querySelector('button[phx-click="enhance_reply"]');
+        if (button && activeElement.value.trim()) {
+          button.setAttribute('phx-value-content', activeElement.value);
+          button.click();
+        }
+      }
+    }
+  });
+
+
+  window.addEventListener("phx:copy-to-clipboard", (e) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(e.detail.text).then(() => {
+        console.log("Link copied to clipboard");
+      }).catch(err => {
+        console.error("Failed to copy link: ", err);
+      });
+    } else {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = e.detail.text;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        console.log("Link copied to clipboard (fallback)");
+      } catch (err) {
+        console.error("Failed to copy link: ", err);
+      }
+      document.body.removeChild(textArea);
+    }
+  });
+</script>

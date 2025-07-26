@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZinIn - Bangalore</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8fafc;
+      color: #22223b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .offline-container {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      padding: 2rem 2.5rem;
+      text-align: center;
+      max-width: 350px;
+    }
+    .offline-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+    }
+    .tips {
+      font-size: 0.95rem;
+      color: #495057;
+      margin-bottom: 1rem;
+    }
+    .btn-retry {
+      background: #f97316;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-retry:hover {
+      background: #ea580c;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>It looks like you lost your internet connection.<br>
+      Don't worry, you can keep browsing some features offline.<br>
+      Your changes will sync when you're back online.</p>
+    <div class="tips">
+      <strong>Tips:</strong>
+      <ul style="text-align:left; margin: 0 0 1rem 1.2rem; padding: 0;">
+        <li>Check your WiFi or mobile data</li>
+        <li>Try reloading the page</li>
+        <li>Any posts you create will sync automatically</li>
+      </ul>
+    </div>
+    <button class="btn-retry" onclick="window.location.reload()">Try Again</button>
+  </div>
+</body>
+</html> 

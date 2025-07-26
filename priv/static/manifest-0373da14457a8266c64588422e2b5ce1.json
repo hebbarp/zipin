@@ -1,0 +1,95 @@
+{
+  "name": "ZipIn Bangalore - Hyperlocal Social Discovery",
+  "short_name": "ZipIn",
+  "description": "Zip into Bangalore's best spots, events, and local community. Your hyperlocal social hub.",
+  "theme_color": "#f97316",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/stream",
+  "categories": ["social", "lifestyle", "local"],
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Discover Places",
+      "short_name": "Places",
+      "description": "Find amazing places in Bangalore",
+      "url": "/stream?tab=places",
+      "icons": [{ "src": "/images/shortcut-places.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Find Events",
+      "short_name": "Events",
+      "description": "Join events and meetups",
+      "url": "/stream?tab=events",
+      "icons": [{ "src": "/images/shortcut-events.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Chat",
+      "description": "Chat with your neighbors",
+      "url": "/messages",
+      "icons": [{ "src": "/images/shortcut-messages.png", "sizes": "96x96" }]
+    }
+  ],
+  "share_target": {
+    "action": "/stream",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

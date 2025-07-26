@@ -1,0 +1,81 @@
+<div class="max-w-2xl mx-auto py-4 sm:py-6 px-3 sm:px-6 lg:px-8">
+  <div class="mb-6">
+    <div class="flex items-center space-x-4 mb-6">
+      <.link navigate={~p"/stream"} class="p-2 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </.link>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white"><%= @target_user.full_name %></h1>
+        <p class="text-gray-500 dark:text-gray-400">Following <%= @following_count %> people</p>
+      </div>
+    </div>
+
+    <!-- Following List -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20">
+      <%= if length(@following) > 0 do %>
+        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+          <%= for followed_user <- @following do %>
+            <div class="p-4 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                  <%= if followed_user.profile_pic do %>
+                    <img src={followed_user.profile_pic} alt={followed_user.full_name} class="w-12 h-12 rounded-full object-cover" />
+                  <% else %>
+                    <span class="text-gray-600 dark:text-gray-300 font-medium text-lg">
+                      <%= String.first(followed_user.full_name) %>
+                    </span>
+                  <% end %>
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <h3 class="font-semibold text-gray-900 dark:text-white"><%= followed_user.full_name %></h3>
+                    <%= if followed_user.verified do %>
+                      <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                    <% end %>
+                  </div>
+                  <%= if followed_user.company do %>
+                    <p class="text-sm text-gray-500 dark:text-gray-400"><%= followed_user.company %></p>
+                  <% end %>
+                  <%= if followed_user.bio do %>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2"><%= followed_user.bio %></p>
+                  <% end %>
+                </div>
+              </div>
+
+              <!-- Follow/Unfollow Button (if not current user) -->
+              <%= if followed_user.id != @current_user.id do %>
+                <button
+                  phx-click="toggle_follow"
+                  phx-value-user_id={followed_user.id}
+                  class={"px-4 py-2 rounded-full text-sm font-medium transition-colors " <>
+                    if(is_following?(@current_user.id, followed_user.id),
+                      do: "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600",
+                      else: "bg-blue-600 text-white hover:bg-blue-700"
+                    )}
+                >
+                  <%= if is_following?(@current_user.id, followed_user.id) do %>
+                    Following
+                  <% else %>
+                    Follow
+                  <% end %>
+                </button>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="p-8 text-center">
+          <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Not following anyone</h3>
+          <p class="text-gray-500 dark:text-gray-400">This user isn't following anyone yet.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

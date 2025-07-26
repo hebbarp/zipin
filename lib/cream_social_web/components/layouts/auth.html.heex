@@ -1,0 +1,18 @@
+<main class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+  <.flash_group flash={@flash} />
+  {@inner_content}
+</main>
+
+<script>
+  // Initialize dark mode for auth pages
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme')
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  })
+</script>

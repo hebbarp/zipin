@@ -1,0 +1,133 @@
+<div class="h-screen flex overflow-hidden">
+  <!-- Conversations Sidebar -->
+  <div class="w-1/3 bg-white border-r border-gray-200 flex flex-col">
+    <div class="p-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">Messages</h2>
+    </div>
+    
+    <div class="flex-1 overflow-y-auto">
+      <!-- Show selected user if we have one, even if no conversations exist -->
+      <%= if @selected_user && length(@conversations) == 0 do %>
+        <div class="block px-4 py-3 bg-blue-50 border-blue-200 border-b border-gray-100">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+              <%= if @selected_user.profile_pic do %>
+                <img src={@selected_user.profile_pic} alt={@selected_user.full_name} class="w-10 h-10 rounded-full object-cover" />
+              <% else %>
+                <span class="text-gray-600 font-medium text-sm">
+                  <%= String.first(@selected_user.full_name) %>
+                </span>
+              <% end %>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-gray-900 truncate">
+                <%= @selected_user.full_name %>
+              </p>
+              <p class="text-xs text-gray-500">Start new conversation</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- Show existing conversations -->
+      <%= for conversation <- @conversations do %>
+        <%
+          other_user = Accounts.get_user!(conversation.other_user_id)
+          is_selected = @selected_user && @selected_user.id == other_user.id
+        %>
+        <.link
+          navigate={~p"/messages/#{other_user.id}"}
+          class={"block px-4 py-3 hover:bg-gray-50 border-b border-gray-100 #{if is_selected, do: "bg-blue-50 border-blue-200"}"}
+        >
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+              <%= if other_user.profile_pic do %>
+                <img src={other_user.profile_pic} alt={other_user.full_name} class="w-10 h-10 rounded-full object-cover" />
+              <% else %>
+                <span class="text-gray-600 font-medium text-sm">
+                  <%= String.first(other_user.full_name) %>
+                </span>
+              <% end %>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-gray-900 truncate">
+                <%= other_user.full_name %>
+              </p>
+              <p class="text-xs text-gray-500">
+                <%= time_ago(conversation.last_message_at) %>
+              </p>
+            </div>
+            <%= if conversation.unread_count > 0 do %>
+              <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                <%= conversation.unread_count %>
+              </span>
+            <% end %>
+          </div>
+        </.link>
+      <% end %>
+      
+      <!-- Show empty state only if no selected user and no conversations -->
+      <%= if !@selected_user && length(@conversations) == 0 do %>
+        <div class="p-4 text-center text-gray-500">
+          <p>No conversations yet</p>
+          <p class="text-sm">Start chatting with someone!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Chat Area -->
+  <div class="flex-1 flex flex-col h-screen">
+    <%= if @selected_user do %>
+      <!-- Chat Header -->
+      <div class="flex-shrink-0 p-4 border-b border-gray-200 bg-white">
+        <h3 class="font-semibold text-gray-900">Chat with <%= @selected_user.full_name %></h3>
+      </div>
+
+      <!-- Messages Area -->
+      <div class="flex-1 overflow-y-auto p-4 bg-gray-50">
+        <%= if length(@messages) == 0 do %>
+          <div class="text-center text-gray-500 mt-8">
+            <p>No messages yet. Start the conversation!</p>
+          </div>
+        <% else %>
+          <%= for message <- @messages do %>
+            <div class={"mb-4 flex #{if message.sender_id == @current_user.id, do: "justify-end", else: "justify-start"}"}>
+              <div class={"max-w-xs px-4 py-2 rounded-lg #{if message.sender_id == @current_user.id, do: "bg-blue-500 text-white", else: "bg-white border"}"}>
+                <p class="text-sm"><%= message.content %></p>
+                <p class="text-xs mt-1 opacity-75"><%= time_ago(message.inserted_at) %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Message Input - Fixed at bottom -->
+      <div class="flex-shrink-0 p-4 border-t border-gray-200 bg-white">
+        <.form for={%{"message" => %{"content" => @new_message}}} phx-submit="send_message" class="flex space-x-3">
+          <input
+            name="message[content]"
+            value={@new_message}
+            phx-change="update_message"
+            placeholder="Type a message..."
+            class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            autofocus
+          />
+          <button
+            type="submit"
+            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Send
+          </button>
+        </.form>
+      </div>
+    <% else %>
+      <!-- No conversation selected -->
+      <div class="flex-1 flex items-center justify-center bg-gray-50">
+        <div class="text-center text-gray-500">
+          <p>Select a conversation to start messaging</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
