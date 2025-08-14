@@ -88,18 +88,4 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/cream_social 
 
 USER nobody
 
-# Create a startup script that runs migrations and then starts the server
-COPY --chown=nobody:root <<-'EOF' /app/bin/start.sh
-#!/bin/bash
-set -e
-
-echo "Running database migrations..."
-/app/bin/cream_social eval "CreamSocial.Release.migrate"
-
-echo "Starting Phoenix server..."
-exec /app/bin/server
-EOF
-
-RUN chmod +x /app/bin/start.sh
-
-CMD ["/app/bin/start.sh"]
+CMD ["/app/bin/server"]

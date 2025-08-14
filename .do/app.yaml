@@ -2,14 +2,13 @@ name: zipin-bangalore
 services:
 - name: web
   dockerfile_path: Dockerfile
-  environment_slug: ubuntu-22
   github:
     branch: main
     deploy_on_push: true
     repo: hebbarp/zipin
   health_check:
     http_path: /
-    initial_delay_seconds: 30
+    initial_delay_seconds: 60
     timeout_seconds: 10
   http_port: 4000
   instance_count: 1
