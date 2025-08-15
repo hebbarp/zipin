@@ -8,7 +8,7 @@ defmodule CreamSocial.Application do
   @impl true
   def start(_type, _args) do
     # Auto-migrate in production
-    if Mix.env() == :prod do
+    if Application.get_env(:zipin, :env) == :prod or System.get_env("MIX_ENV") == "prod" do
       try do
         CreamSocial.Release.migrate()
         CreamSocial.Release.seed()
