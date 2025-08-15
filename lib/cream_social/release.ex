@@ -20,10 +20,16 @@ defmodule CreamSocial.Release do
 
   def seed do
     load_app()
-    # Run the seed script
+    # Run the main seed script
     seed_script = Path.join([Application.app_dir(@app, "priv"), "repo", "seeds.exs"])
     if File.exists?(seed_script) do
       Code.eval_file(seed_script)
+    end
+    
+    # Also run cities seed script
+    cities_seed_script = Path.join([Application.app_dir(@app, "priv"), "repo", "seeds_cities_events.exs"])
+    if File.exists?(cities_seed_script) do
+      Code.eval_file(cities_seed_script)
     end
   end
 

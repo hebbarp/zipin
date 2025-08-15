@@ -7,30 +7,49 @@ defmodule CreamSocialWeb.StreamLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
-    current_user = get_current_user_safe(session)
-    is_public = current_user == nil
-    
-    # Subscribe to post updates for real-time link previews (only if authenticated)
-    if connected?(socket) && current_user do
-      Phoenix.PubSub.subscribe(CreamSocial.PubSub, "post_updates")
-    end
-    
-    socket = 
-      socket
-      |> assign(:current_user, current_user)
-      |> assign(:is_public, is_public)
-      |> assign(:posts, if(current_user, do: list_posts_with_follow_status(current_user.id), else: list_public_posts()))
-      |> assign(:page_title, if(is_public, do: "ZipIn Bangalore - Discover Your City", else: "ZipIn - Your Local Social Hub"))
-      |> assign_forms_if_authenticated(current_user)
-      |> assign(:expanded_posts, MapSet.new())
-      |> assign(:editing_post_id, nil)
-      |> assign(:edit_form, nil)
-      |> assign(:sharing_post_id, nil)
-      |> assign(:typing_link_previews, [])
-      |> assign(:ai_enhancing, nil)
-      |> maybe_allow_uploads(current_user)
+    try do
+      current_user = get_current_user_safe(session)
+      is_public = current_user == nil
+      
+      # Subscribe to post updates for real-time link previews (only if authenticated)
+      if connected?(socket) && current_user do
+        Phoenix.PubSub.subscribe(CreamSocial.PubSub, "post_updates")
+      end
+      
+      # Safely get posts with error handling
+      posts = try do
+        if current_user do
+          list_posts_with_follow_status(current_user.id)
+        else
+          list_public_posts()
+        end
+      rescue
+        e ->
+          Logger.error("Error loading posts: #{inspect(e)}")
+          []
+      end
+      
+      socket = 
+        socket
+        |> assign(:current_user, current_user)
+        |> assign(:is_public, is_public)
+        |> assign(:posts, posts)
+        |> assign(:page_title, if(is_public, do: "ZipIn Bangalore - Discover Your City", else: "ZipIn - Your Local Social Hub"))
+        |> assign_forms_if_authenticated(current_user)
+        |> assign(:expanded_posts, MapSet.new())
+        |> assign(:editing_post_id, nil)
+        |> assign(:edit_form, nil)
+        |> assign(:sharing_post_id, nil)
+        |> assign(:typing_link_previews, [])
+        |> assign(:ai_enhancing, nil)
+        |> maybe_allow_uploads(current_user)
 
-    {:ok, socket}
+      {:ok, socket}
+    rescue
+      e ->
+        Logger.error("Error mounting stream page: #{inspect(e)}")
+        {:ok, assign(socket, :posts, [])}
+    end
   end
   
   defp assign_forms_if_authenticated(socket, nil) do
