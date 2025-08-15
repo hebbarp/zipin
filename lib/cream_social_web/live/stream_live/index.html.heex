@@ -144,11 +144,10 @@
             id="voice-record-btn"
             class="absolute top-2 right-12 p-2 text-gray-400 hover:text-blue-500 transition-colors"
             title="Voice to Post (Hold to speak)"
-            onmousedown="startVoiceRecordingSimple('main-post-textarea', this)"
-            onmouseup="stopVoiceRecordingSimple(this)"
-            onmouseleave="stopVoiceRecordingSimple(this)"
-            ontouchstart="startVoiceRecordingSimple('main-post-textarea', this)"
-            ontouchend="stopVoiceRecordingSimple(this)"
+            onpointerdown="startVoiceRecordingSimple('main-post-textarea', this)"
+            onpointerup="stopVoiceRecordingSimple(this)"
+            onpointerleave="stopVoiceRecordingSimple(this)"
+            onpointercancel="stopVoiceRecordingSimple(this)"
           >
             <!-- Microphone icon -->
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +253,8 @@
           </div>
           <button
             type="submit"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            phx-disable-with="Posting..."
+            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
           >
             Post
           </button>
@@ -653,7 +653,8 @@
                   </button>
                   <button
                     type="submit"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    phx-disable-with="Updating..."
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                   >
                     Update Post
                   </button>
@@ -967,7 +968,8 @@
                   </button>
                   <button
                     type="submit"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    phx-disable-with="Replying..."
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                   >
                     Reply
                   </button>
@@ -1045,7 +1047,7 @@
                     Cancel
                   </button>
                   <button
-                    type="submit"
+                    type="button"
                     phx-click="set_share_type"
                     phx-value-type="quote"
                     phx-value-post_id={post.id}
@@ -1131,7 +1133,10 @@
   }
 
   function startVoiceRecordingSimple(textareaId, button) {
-    if (isRecording) return;
+    if (isRecording) {
+      console.log('Voice recording already in progress, ignoring duplicate call');
+      return;
+    }
 
     currentTextarea = document.getElementById(textareaId);
     currentButton = button;
