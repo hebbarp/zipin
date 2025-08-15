@@ -11,6 +11,8 @@ services:
     initial_delay_seconds: 60
     timeout_seconds: 10
   http_port: 4000
+  # Enable WebSocket support
+  websockets: true
   instance_count: 1
   instance_size_slug: basic-s
   routes:
