@@ -53,6 +53,26 @@ jobs:
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
+- name: db-seed
+  kind: POST_DEPLOY
+  dockerfile_path: Dockerfile
+  github:
+    branch: main
+    repo: hebbarp/zipin
+  source_dir: /
+  run_command: /app/bin/zipin eval "CreamSocial.Release.seed()"
+  envs:
+  - key: MIX_ENV
+    value: prod
+  - key: PHX_HOST
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+  - key: SECRET_KEY_BASE
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
 databases:
 - engine: PG
   name: zipin-db
