@@ -50,22 +50,65 @@ demo_user = case Repo.get_by(User, email: "demo@creamsocial.com") do
     existing
 end
 
-# Create some sample posts
+# Create engaging Bangalore-focused posts
 posts = [
   %{
-    content: "Welcome to Cream Social! This is our new Phoenix-powered social platform. 🚀",
+    content: "🎉 Welcome to ZipIn Bangalore! Just discovered the most amazing filter coffee spot in Koramangala. The owner has been running it for 20 years and the taste is unbeatable! ☕️ #LocalLove #BangaloreCoffee #Koramangala",
     visibility: "public",
-    user_id: demo_user.id
+    user_id: demo_user.id,
+    metadata: %{location: "Koramangala"}
   },
   %{
-    content: "Just migrated from PHP to Elixir/Phoenix. The real-time features are incredible! The performance improvement is night and day. #elixir #phoenix",
+    content: "Anyone else been to the new rooftop bar at UB City? The view of the city skyline is absolutely stunning! 🌃 Perfect spot for weekend drinks with friends. #BangaloreNightlife #UBCity #WeekendVibes",
     visibility: "public", 
+    user_id: demo_user.id,
+    metadata: %{location: "UB City"}
+  },
+  %{
+    content: "Cubbon Park at 6 AM hits different 🌳 The morning joggers, fresh air, and that peaceful vibe before the city wakes up. Best way to start the day in Bangalore! #MorningRun #CubbonPark #BangaloreLife",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "Cubbon Park"}
+  },
+  %{
+    content: "Food coma alert! 🤤 Just had the most incredible dosa at this hidden gem in Jayanagar. 30-year-old family recipe and you can taste the authenticity in every bite. Why do chain restaurants even exist when we have places like this? #AuthenticBangalore #Dosa #Jayanagar",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "Jayanagar"}
+  },
+  %{
+    content: "Bangalore traffic got you down? 🚗😅 Just spent 2 hours getting from Electronic City to Koramangala. Anyone else think we need more metro lines ASAP? Share your worst traffic stories! #BangaloreTraffic #NammaBangalore #MetroExpansion",
+    visibility: "public",
     user_id: demo_user.id
   },
   %{
-    content: "Working on some exciting new features for the platform. Stay tuned for updates! What would you like to see added next?",
+    content: "The startup energy in Koramangala is infectious! 🚀 Just attended an amazing tech meetup at 91springboard. Met some incredible founders working on AI, fintech, and climate solutions. This city's innovation ecosystem is world-class! #BangaloreStartups #TechMeetup #Innovation",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "Koramangala"}
+  },
+  %{
+    content: "Weekend vibes: Lalbagh Botanical Garden 🌺 The flower show is spectacular this time of year! Perfect place to escape the city noise and connect with nature. Plus, the Victorian-era glasshouse is a photographer's dream. #Lalbagh #WeekendPlans #NatureInTheCity",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "Lalbagh"}
+  },
+  %{
+    content: "Indiranagar food crawl complete! 🍽️ Hit up Toit for craft beer, The Humming Tree for live music, and ended at that amazing street food corner near 100ft road. This neighborhood has the perfect mix of trendy and authentic. #IndiRanagar #FoodCrawl #BangaloreEats",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "Indiranagar"}
+  },
+  %{
+    content: "Hot take: Bangalore has better weather than most international cities 🌤️ While friends in Delhi are melting and Mumbai friends are drowning, we're here with perfect 25°C and a gentle breeze. Never taking this climate for granted! #BangaloreWeather #SiliconValleyOfIndia",
     visibility: "public",
     user_id: demo_user.id
+  },
+  %{
+    content: "Just discovered this coworking space in HSR Layout and it's a game changer! 💻 Super fast internet, unlimited coffee, and the community here is amazing. Meeting fellow entrepreneurs and freelancers is so inspiring. Remote work in Bangalore keeps getting better! #CoworkingLife #HSRLayout #DigitalNomad",
+    visibility: "public",
+    user_id: demo_user.id,
+    metadata: %{location: "HSR Layout"}
   }
 ]
 
