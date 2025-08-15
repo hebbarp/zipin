@@ -168,6 +168,65 @@
     </div>
   </div>
 </header>
+<% else %>
+<!-- Public Header for Non-Authenticated Users -->
+<header class="bg-white shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <.link navigate={~p"/"} class="flex items-center">
+          <span class="text-2xl mr-2">🇮🇳</span>
+          <h1 class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-orange-600 to-green-600 bg-clip-text text-transparent">ZipIn</h1>
+        </.link>
+      </div>
+      
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-4">
+        <.link navigate={~p"/stream"} class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+          Browse Stream
+        </.link>
+        <.link navigate={~p"/auth/login"} class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+          Login
+        </.link>
+        <.link navigate={~p"/auth/register"} class="bg-gradient-to-r from-orange-500 to-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-md transition-all">
+          Sign Up
+        </.link>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button class="text-gray-700 hover:text-gray-900" onclick="toggleMobileMenu()">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <div class="flex flex-col space-y-2">
+        <.link navigate={~p"/stream"} class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+          Browse Stream
+        </.link>
+        <.link navigate={~p"/auth/login"} class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+          Login
+        </.link>
+        <.link navigate={~p"/auth/register"} class="bg-gradient-to-r from-orange-500 to-green-500 text-white px-3 py-2 rounded-lg text-sm font-medium text-center">
+          Sign Up
+        </.link>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('hidden');
+  }
+</script>
 <% end %>
 <main class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
   <.flash_group flash={@flash} />

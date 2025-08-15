@@ -38,29 +38,30 @@
         </div>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <button 
-            phx-click="explore_app" 
-            class="px-8 py-4 bg-gradient-to-r from-orange-500 to-green-500 text-white font-bold text-lg rounded-xl hover:shadow-lg transform hover:scale-105 transition-all"
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <a 
+            href="/auth/register" 
+            class="px-8 py-4 bg-gradient-to-r from-orange-500 to-green-500 text-white font-bold text-lg rounded-xl hover:shadow-lg transform hover:scale-105 transition-all text-center"
           >
-            🔥 Explore Bangalore Beta
-          </button>
+            🚀 Sign Up - It's Free!
+          </a>
           
-          <form phx-submit="join_waitlist" class="flex">
-            <input 
-              name="email" 
-              type="email" 
-              placeholder="your@email.com" 
-              class="px-4 py-4 border-2 border-gray-300 rounded-l-xl flex-1 min-w-0"
-              required
-            />
-            <button 
-              type="submit" 
-              class="px-6 py-4 bg-blue-600 text-white font-bold rounded-r-xl hover:bg-blue-700"
-            >
-              Join Waitlist
-            </button>
-          </form>
+          <a 
+            href="/auth/login" 
+            class="px-8 py-4 bg-white text-gray-800 font-bold text-lg rounded-xl border-2 border-orange-500 hover:bg-orange-50 hover:shadow-lg transform hover:scale-105 transition-all text-center"
+          >
+            👋 Login
+          </a>
+        </div>
+
+        <!-- Browse Public Stream Link -->
+        <div class="mb-12">
+          <a 
+            href="/stream" 
+            class="text-blue-600 hover:text-blue-800 font-semibold text-lg underline"
+          >
+            Or browse the public stream without signing up →
+          </a>
         </div>
 
         <!-- Bangalore Live Stats -->
