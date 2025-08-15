@@ -26,12 +26,14 @@ defmodule CreamSocialWeb.Router do
     live "/", LandingLive, :index
     get "/home", PageController, :home
     
-    # Public pages for LLM crawling and browsing
+    # Public pages - anyone can view content
+    live "/stream", StreamLive.Index, :index
+    live "/stream/:id", StreamLive.Show, :show
     live "/places/:id", PlaceLive, :show
     live "/events/:id", EventLive, :show
-    live "/explore", StreamLive.Index, :public
-    live "/explore/places", StreamLive.Index, :places
-    live "/explore/events", StreamLive.Index, :events
+    live "/profile/:id", ProfileLive.Show, :show
+    live "/users/:user_id/followers", FollowersLive.Index, :index
+    live "/users/:user_id/following", FollowingLive.Index, :index
     
     # SEO and crawling support
     get "/sitemap.xml", SitemapController, :index
@@ -47,15 +49,11 @@ defmodule CreamSocialWeb.Router do
   scope "/", CreamSocialWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/stream", StreamLive.Index, :index
-    live "/stream/:id", StreamLive.Show, :show
+    # Private user-specific pages
     live "/bookmarks", BookmarksLive.Index, :index
     live "/messages", MessagesLive.Index, :index
     live "/messages/:user_id", MessagesLive.Index, :chat
-    live "/profile/:id", ProfileLive.Show, :show
     live "/settings", SettingsLive.Index, :index
-    live "/users/:user_id/followers", FollowersLive.Index, :index
-    live "/users/:user_id/following", FollowingLive.Index, :index
   end
 
   defp fetch_current_user(conn, _opts) do

@@ -21,21 +21,35 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
-  database_url = System.get_env("DATABASE_URL")
+  # Production database configuration
+  # Defaults to PostgreSQL, but can fallback to SQLite
+  database_adapter = 
+    case System.get_env("DATABASE_ADAPTER") do
+      "sqlite" -> :sqlite
+      _ -> :postgres
+    end
   
-  if database_url do
-    maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
-
+  config :cream_social, :database_adapter, database_adapter
+  
+  if database_adapter == :postgres do
+    # PostgreSQL configuration
+    database_url =
+      System.get_env("DATABASE_URL") ||
+        raise """
+        environment variable DATABASE_URL is missing.
+        For example: ecto://USER:PASS@HOST/DATABASE
+        """
+    
     config :cream_social, CreamSocial.Repo,
-      # ssl: true,
       url: database_url,
       pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-      socket_options: maybe_ipv6
+      ssl: true,
+      ssl_opts: [verify: :verify_none]
   else
-    # For demo purposes without database - disable database entirely
+    # SQLite fallback configuration
     config :cream_social, CreamSocial.Repo,
-      pool_size: 1,
-      priv: "priv/repo"
+      database: System.get_env("SQLITE_DB_PATH") || "/app/cream_social_prod.db",
+      pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5")
   end
 
   # The secret key base is used to sign/encrypt cookies and other secrets.

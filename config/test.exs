@@ -5,11 +5,12 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
+
+# Use SQLite for tests by default (faster and isolated)
+config :cream_social, :database_adapter, :sqlite
+
 config :cream_social, CreamSocial.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "cream_social_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "cream_social_test#{System.get_env("MIX_TEST_PARTITION")}.db",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 

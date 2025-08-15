@@ -1,14 +1,29 @@
 import Config
 
 # Configure your database
+# Set database adapter - defaults to PostgreSQL, fallback to SQLite
+config :cream_social, :database_adapter, :postgres
+
 config :cream_social, CreamSocial.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "cream_social_dev",
+  username: System.get_env("POSTGRES_USER") || "postgres",
+  password: System.get_env("POSTGRES_PASSWORD") || "postgres",
+  hostname: System.get_env("POSTGRES_HOST") || "localhost",
+  database: System.get_env("POSTGRES_DB") || "cream_social_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
+
+# SQLite fallback configuration (for offline mode)
+# To use SQLite, set CREAM_SOCIAL_DB_ADAPTER=sqlite
+if System.get_env("CREAM_SOCIAL_DB_ADAPTER") == "sqlite" do
+  config :cream_social, :database_adapter, :sqlite
+  
+  config :cream_social, CreamSocial.Repo,
+    database: "cream_social_dev.db",
+    stacktrace: true,
+    show_sensitive_data_on_connection_error: true,
+    pool_size: 10
+end
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -19,7 +34,7 @@ config :cream_social, CreamSocial.Repo,
 config :cream_social, CreamSocialWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4001],
+  http: [ip: {127, 0, 0, 1}, port: 4003],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

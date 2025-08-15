@@ -19,7 +19,7 @@ defmodule CreamSocialWeb.StreamLive.Index do
       socket
       |> assign(:current_user, current_user)
       |> assign(:is_public, is_public)
-      |> assign(:posts, if(is_public, do: get_mock_posts(), else: if(current_user, do: list_posts_with_follow_status(current_user.id), else: get_mock_posts())))
+      |> assign(:posts, if(current_user, do: list_posts_with_follow_status(current_user.id), else: list_public_posts()))
       |> assign(:page_title, if(is_public, do: "ZipIn Bangalore - Discover Your City", else: "ZipIn - Your Local Social Hub"))
       |> assign_forms_if_authenticated(current_user)
       |> assign(:expanded_posts, MapSet.new())
@@ -983,203 +983,22 @@ defmodule CreamSocialWeb.StreamLive.Index do
 
   defp list_public_posts do
     # Return recent public posts for public viewing
-    try do
-      Content.list_posts()
-      |> Enum.take(20)
-      |> Enum.map(fn post ->
-        Map.put(post, :follow_info, %{
-          is_following: false,
-          followers_count: 0,
-          following_count: 0
-        })
-      end)
-    rescue
-      _ ->
-        # Return mock data when database is unavailable (demo mode)
-        get_mock_posts()
-    end
+    from(p in Post,
+      where: p.visibility == "public" and is_nil(p.deleted_at),
+      order_by: [desc: p.inserted_at],
+      limit: 20,
+      preload: [:user]
+    )
+    |> Repo.all()
+    |> Enum.map(fn post ->
+      Map.put(post, :follow_info, %{
+        is_following: false,
+        followers_count: 0,
+        following_count: 0
+      })
+    end)
   end
 
-  defp get_mock_posts do
-    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
-    
-    [
-      %{
-        # Post schema fields
-        id: 1,
-        content: "🎉 Welcome to ZipIn Bangalore! Discovered an amazing coffee shop in Koramangala today. The filter coffee here beats any chain store! ☕️ #LocalLove #BangaloreEats",
-        media_paths: [],
-        metadata: %{location: "Koramangala"},
-        visibility: "public",
-        scheduled_at: nil,
-        published_at: now |> NaiveDateTime.add(-3600, :second),
-        edited_at: nil,
-        deleted_at: nil,
-        likes_count: 12,
-        comments_count: 3,
-        shares_count: 2,
-        views_count: 45,
-        user_id: 1,
-        parent_id: nil,
-        shared_post_id: nil,
-        category_id: nil,
-        # Associations (preloaded)
-        parent: nil,
-        shared_post: nil,
-        category: nil,
-        replies: [],
-        shares: [],
-        likes: [],
-        bookmarks: [],
-        channel_posts: [],
-        link_previews: [],
-        inserted_at: now |> NaiveDateTime.add(-3600, :second),
-        updated_at: now |> NaiveDateTime.add(-3600, :second),
-        # User association (preloaded)
-        user: %{
-          id: 1,
-          email: "priya@example.com", 
-          full_name: "Priya K",
-          phone_no: nil,
-          country_code: nil,
-          company: "Tech Startup",
-          website: nil,
-          bio: "Coffee enthusiast and local explorer",
-          profile_pic: nil,
-          subdomain: nil,
-          verified: false,
-          active: true,
-          subscription_plan: "free",
-          subscription_expires_at: nil,
-          invite_code: "abc123",
-          category_id: nil,
-          openai_api_key: nil,
-          referred_by_id: nil,
-          city_id: nil,
-          inserted_at: now |> NaiveDateTime.add(-86400, :second),
-          updated_at: now |> NaiveDateTime.add(-86400, :second)
-        },
-        # Additional follow info (not in schema but needed by template)
-        follow_info: %{is_following: false, followers_count: 124, following_count: 89}
-      },
-      %{
-        # Post schema fields
-        id: 2,
-        content: "Anyone knows what's happening at Cubbon Park? Saw lots of people gathering there 🤔 #CubbonPark #Bangalore",
-        media_paths: [],
-        metadata: %{location: "MG Road"},
-        visibility: "public",
-        scheduled_at: nil,
-        published_at: now |> NaiveDateTime.add(-7200, :second),
-        edited_at: nil,
-        deleted_at: nil,
-        likes_count: 8,
-        comments_count: 5,
-        shares_count: 1,
-        views_count: 32,
-        user_id: 2,
-        parent_id: nil,
-        shared_post_id: nil,
-        category_id: nil,
-        # Associations (preloaded)
-        parent: nil,
-        shared_post: nil,
-        category: nil,
-        replies: [],
-        shares: [],
-        likes: [],
-        bookmarks: [],
-        channel_posts: [],
-        link_previews: [],
-        inserted_at: now |> NaiveDateTime.add(-7200, :second),
-        updated_at: now |> NaiveDateTime.add(-7200, :second),
-        # User association (preloaded)
-        user: %{
-          id: 2,
-          email: "rahul@example.com",
-          full_name: "Rahul M",
-          phone_no: nil,
-          country_code: nil,
-          company: nil,
-          website: nil,
-          bio: "Always curious about the city",
-          profile_pic: nil,
-          subdomain: nil,
-          verified: true,
-          active: true,
-          subscription_plan: "free",
-          subscription_expires_at: nil,
-          invite_code: "def456",
-          category_id: nil,
-          openai_api_key: nil,
-          referred_by_id: nil,
-          city_id: nil,
-          inserted_at: now |> NaiveDateTime.add(-172800, :second),
-          updated_at: now |> NaiveDateTime.add(-172800, :second)
-        },
-        # Additional follow info (not in schema but needed by template)
-        follow_info: %{is_following: false, followers_count: 67, following_count: 156}
-      },
-      %{
-        # Post schema fields
-        id: 3,
-        content: "Found the best dosa place in Jayanagar! 🤤 The owner has been running this place for 30 years. Pure nostalgia and taste! #AuthenticBangalore #Dosa",
-        media_paths: [],
-        metadata: %{location: "Jayanagar"},
-        visibility: "public",
-        scheduled_at: nil,
-        published_at: now |> NaiveDateTime.add(-10800, :second),
-        edited_at: nil,
-        deleted_at: nil,
-        likes_count: 25,
-        comments_count: 8,
-        shares_count: 4,
-        views_count: 78,
-        user_id: 3,
-        parent_id: nil,
-        shared_post_id: nil,
-        category_id: nil,
-        # Associations (preloaded)
-        parent: nil,
-        shared_post: nil,
-        category: nil,
-        replies: [],
-        shares: [],
-        likes: [],
-        bookmarks: [],
-        channel_posts: [],
-        link_previews: [],
-        inserted_at: now |> NaiveDateTime.add(-10800, :second),
-        updated_at: now |> NaiveDateTime.add(-10800, :second),
-        # User association (preloaded)
-        user: %{
-          id: 3,
-          email: "sneha@example.com",
-          full_name: "Sneha D",
-          phone_no: nil,
-          country_code: nil,
-          company: "Food Blog",
-          website: nil,
-          bio: "Exploring Bangalore's food scene",
-          profile_pic: nil,
-          subdomain: nil,
-          verified: false,
-          active: true,
-          subscription_plan: "free",
-          subscription_expires_at: nil,
-          invite_code: "ghi789",
-          category_id: nil,
-          openai_api_key: nil,
-          referred_by_id: nil,
-          city_id: nil,
-          inserted_at: now |> NaiveDateTime.add(-259200, :second),
-          updated_at: now |> NaiveDateTime.add(-259200, :second)
-        },
-        # Additional follow info (not in schema but needed by template)
-        follow_info: %{is_following: false, followers_count: 203, following_count: 134}
-      }
-    ]
-  end
 
   defp get_file_extension(filename) do
     filename
