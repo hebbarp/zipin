@@ -356,7 +356,7 @@ defmodule CreamSocial.Content do
 
   defp generate_share_link(%Post{} = post) do
     # Generate a shareable URL for the post
-    base_url = Application.get_env(:cream_social, :base_url, "http://localhost:4001")
+  base_url = Application.get_env(:zipin, :base_url, "http://localhost:4001")
     "#{base_url}/stream/#{post.id}"
   end
 

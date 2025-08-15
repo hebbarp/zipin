@@ -2,13 +2,13 @@ import Config
 
 # Configure your database
 # Set database adapter - defaults to PostgreSQL, fallback to SQLite
-config :cream_social, :database_adapter, :postgres
+config :zipin, :database_adapter, :postgres
 
-config :cream_social, CreamSocial.Repo,
+config :zipin, CreamSocial.Repo,
   username: System.get_env("POSTGRES_USER") || "postgres",
   password: System.get_env("POSTGRES_PASSWORD") || "postgres",
   hostname: System.get_env("POSTGRES_HOST") || "localhost",
-  database: System.get_env("POSTGRES_DB") || "cream_social_dev",
+  database: System.get_env("POSTGRES_DB") || "zipin_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,10 +16,10 @@ config :cream_social, CreamSocial.Repo,
 # SQLite fallback configuration (for offline mode)
 # To use SQLite, set CREAM_SOCIAL_DB_ADAPTER=sqlite
 if System.get_env("CREAM_SOCIAL_DB_ADAPTER") == "sqlite" do
-  config :cream_social, :database_adapter, :sqlite
+  config :zipin, :database_adapter, :sqlite
   
-  config :cream_social, CreamSocial.Repo,
-    database: "cream_social_dev.db",
+  config :zipin, CreamSocial.Repo,
+    database: "zipin_dev.db",
     stacktrace: true,
     show_sensitive_data_on_connection_error: true,
     pool_size: 10
@@ -31,7 +31,7 @@ end
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :cream_social, CreamSocialWeb.Endpoint,
+config :zipin, CreamSocialWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4003],
@@ -40,8 +40,8 @@ config :cream_social, CreamSocialWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "fB5UJ+o3aAIvkcprZd8S8dORRFdpPnVWVPARTIGNe1nEDbVf5+tdvegkhC/I54NP",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:cream_social, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:cream_social, ~w(--watch)]}
+  esbuild: {Esbuild, :install_and_run, [:zipin, ~w(--sourcemap=inline --watch)]},
+  tailwind: {Tailwind, :install_and_run, [:zipin, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -68,7 +68,7 @@ config :cream_social, CreamSocialWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :cream_social, CreamSocialWeb.Endpoint,
+config :zipin, CreamSocialWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
@@ -78,7 +78,7 @@ config :cream_social, CreamSocialWeb.Endpoint,
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :cream_social, dev_routes: true
+config :zipin, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

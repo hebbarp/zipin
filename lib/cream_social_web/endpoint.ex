@@ -1,12 +1,12 @@
 defmodule CreamSocialWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :cream_social
+  use Phoenix.Endpoint, otp_app: :zipin
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_cream_social_key",
+  key: "_zipin_key",
     signing_salt: "7lzO05Sl",
     same_site: "Lax"
   ]
@@ -21,7 +21,7 @@ defmodule CreamSocialWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :cream_social,
+  from: :zipin,
     gzip: false,
     only: CreamSocialWeb.static_paths()
 
@@ -31,7 +31,7 @@ defmodule CreamSocialWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :cream_social
+  plug Phoenix.Ecto.CheckRepoStatus, otp_app: :zipin
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

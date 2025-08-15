@@ -3,7 +3,7 @@ defmodule CreamSocial.Release do
   Used for executing DB release tasks when run in production without Mix
   installed.
   """
-  @app :cream_social
+  @app :zipin
 
   def migrate do
     load_app()

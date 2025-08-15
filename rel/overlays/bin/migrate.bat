@@ -1,1 +1,1 @@
-call "%~dp0\cream_social" eval CreamSocial.Release.migrate
+call "%~dp0\zipin" eval CreamSocial.Release.migrate

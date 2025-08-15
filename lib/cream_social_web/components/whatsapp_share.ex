@@ -1,6 +1,5 @@
 defmodule CreamSocialWeb.WhatsappShare do
   use Phoenix.Component
-  import Phoenix.LiveView.JS
   use CreamSocialWeb, :verified_routes
   
   alias CreamSocial.Events.Event
@@ -12,7 +11,7 @@ defmodule CreamSocialWeb.WhatsappShare do
   def share_place_whatsapp(assigns) do
     ~H"""
     <button
-      phx-click={JS.exec("share_place_whatsapp", to: "#whatsapp-share-data")}
+      phx-click={Phoenix.LiveView.JS.exec("share_place_whatsapp", to: "#whatsapp-share-data")}
       data-place-name={@place.name}
       data-place-area={area_display_name(@place.area)}
       data-place-category={@place.category}
@@ -37,7 +36,7 @@ defmodule CreamSocialWeb.WhatsappShare do
   def share_event_whatsapp(assigns) do
     ~H"""
     <button
-      phx-click={JS.exec("share_event_whatsapp", to: "#whatsapp-event-data")}
+      phx-click={Phoenix.LiveView.JS.exec("share_event_whatsapp", to: "#whatsapp-event-data")}
       data-event-title={@event.title}
       data-event-area={@event.area}
       data-event-date={Event.format_datetime(@event.start_datetime)}
@@ -62,7 +61,7 @@ defmodule CreamSocialWeb.WhatsappShare do
   def share_post_whatsapp(assigns) do
     ~H"""
     <button
-      phx-click={JS.exec("share_post_whatsapp", to: "#whatsapp-post-data")}
+      phx-click={Phoenix.LiveView.JS.exec("share_post_whatsapp", to: "#whatsapp-post-data")}
       data-post-content={String.slice(@post.content, 0, 100)}
       data-post-author={@post.user.full_name}
       data-post-area={@post.user.location || "Bangalore"}

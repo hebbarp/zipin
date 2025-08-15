@@ -53,23 +53,23 @@ defmodule CreamSocialWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("cream_social.repo.query.total_time",
+  summary("zipin.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("cream_social.repo.query.decode_time",
+  summary("zipin.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("cream_social.repo.query.query_time",
+  summary("zipin.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("cream_social.repo.query.queue_time",
+  summary("zipin.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("cream_social.repo.query.idle_time",
+  summary("zipin.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"

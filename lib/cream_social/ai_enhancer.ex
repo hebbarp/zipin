@@ -6,7 +6,7 @@ defmodule CreamSocial.AIEnhancer do
 
   require Logger
 
-  @api_base Application.compile_env(:cream_social, [:openai, :api_base], "https://api.openai.com/v1")
+  @api_base Application.compile_env(:zipin, [:openai, :api_base], "https://api.openai.com/v1")
   
   def enhance_message(text, user) when is_binary(text) and byte_size(text) > 0 do
     api_key = get_api_key(user)
@@ -41,7 +41,7 @@ defmodule CreamSocial.AIEnhancer do
         key
       _ ->
         # Fallback to system API key if user hasn't set one
-        Application.get_env(:cream_social, :openai)[:api_key] ||
+  Application.get_env(:zipin, :openai)[:api_key] ||
           System.get_env("OPENAI_API_KEY")
     end
   end

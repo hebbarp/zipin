@@ -10,7 +10,7 @@ defmodule CreamSocial.Application do
     children = [
       CreamSocialWeb.Telemetry,
       CreamSocial.Repo,
-      {DNSCluster, query: Application.get_env(:cream_social, :dns_cluster_query) || :ignore},
+  {DNSCluster, query: Application.get_env(:zipin, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: CreamSocial.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: CreamSocial.Finch},

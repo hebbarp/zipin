@@ -7,12 +7,12 @@
 # General application configuration
 import Config
 
-config :cream_social,
+config :zipin,
   ecto_repos: [CreamSocial.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :cream_social, CreamSocialWeb.Endpoint,
+config :zipin, CreamSocialWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
@@ -29,12 +29,12 @@ config :cream_social, CreamSocialWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :cream_social, CreamSocial.Mailer, adapter: Swoosh.Adapters.Local
+config :zipin, CreamSocial.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  cream_social: [
+  zipin: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
@@ -44,7 +44,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "3.4.3",
-  cream_social: [
+  zipin: [
     args: ~w(
       --config=tailwind.config.js
       --input=css/app.css
@@ -62,7 +62,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Configure OpenAI API
-config :cream_social, :openai,
+config :zipin, :openai,
   api_key: System.get_env("OPENAI_API_KEY"),
   api_base: "https://api.openai.com/v1"
 

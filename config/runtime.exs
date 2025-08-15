@@ -12,12 +12,12 @@ import Config
 # If you use `mix release`, you need to explicitly enable the server
 # by passing the PHX_SERVER=true when you start it:
 #
-#     PHX_SERVER=true bin/cream_social start
+#     PHX_SERVER=true bin/zipin start
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
 if System.get_env("PHX_SERVER") do
-  config :cream_social, CreamSocialWeb.Endpoint, server: true
+  config :zipin, CreamSocialWeb.Endpoint, server: true
 end
 
 if config_env() == :prod do
@@ -29,7 +29,7 @@ if config_env() == :prod do
       _ -> :postgres
     end
   
-  config :cream_social, :database_adapter, database_adapter
+  config :zipin, :database_adapter, database_adapter
   
   if database_adapter == :postgres do
     # PostgreSQL configuration
@@ -40,15 +40,15 @@ if config_env() == :prod do
         For example: ecto://USER:PASS@HOST/DATABASE
         """
     
-    config :cream_social, CreamSocial.Repo,
+    config :zipin, CreamSocial.Repo,
       url: database_url,
       pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
       ssl: true,
       ssl_opts: [verify: :verify_none]
   else
     # SQLite fallback configuration
-    config :cream_social, CreamSocial.Repo,
-      database: System.get_env("SQLITE_DB_PATH") || "/app/cream_social_prod.db",
+    config :zipin, CreamSocial.Repo,
+      database: System.get_env("SQLITE_DB_PATH") || "/app/zipin_prod.db",
       pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5")
   end
 
@@ -67,9 +67,9 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
-  config :cream_social, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
+  config :zipin, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
-  config :cream_social, CreamSocialWeb.Endpoint,
+  config :zipin, CreamSocialWeb.Endpoint,
     url: [host: host, port: port, scheme: "https"],
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -86,7 +86,7 @@ if config_env() == :prod do
   # To get SSL working, you will need to add the `https` key
   # to your endpoint configuration:
   #
-  #     config :cream_social, CreamSocialWeb.Endpoint,
+  #     config :zipin, CreamSocialWeb.Endpoint,
   #       https: [
   #         ...,
   #         port: 443,
@@ -108,7 +108,7 @@ if config_env() == :prod do
   # We also recommend setting `force_ssl` in your config/prod.exs,
   # ensuring no data is ever sent via http, always redirecting to https:
   #
-  #     config :cream_social, CreamSocialWeb.Endpoint,
+  #     config :zipin, CreamSocialWeb.Endpoint,
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
@@ -119,7 +119,7 @@ if config_env() == :prod do
   # Also, you may need to configure the Swoosh API client of your choice if you
   # are not using SMTP. Here is an example of the configuration:
   #
-  #     config :cream_social, CreamSocial.Mailer,
+  #     config :zipin, CreamSocial.Mailer,
   #       adapter: Swoosh.Adapters.Mailgun,
   #       api_key: System.get_env("MAILGUN_API_KEY"),
   #       domain: System.get_env("MAILGUN_DOMAIN")

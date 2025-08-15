@@ -3,13 +3,13 @@ defmodule CreamSocial.Repo do
   @adapter (if Mix.env() == :prod do
     Ecto.Adapters.Postgres
   else
-    case Application.compile_env(:cream_social, :database_adapter, :postgres) do
+  case Application.compile_env(:zipin, :database_adapter, :postgres) do
       :postgres -> Ecto.Adapters.Postgres
       :sqlite -> Ecto.Adapters.SQLite3
     end
   end)
 
   use Ecto.Repo,
-    otp_app: :cream_social,
+  otp_app: :zipin,
     adapter: @adapter
 end

@@ -40,7 +40,7 @@ jobs:
     branch: main
     repo: hebbarp/zipin
   source_dir: /
-  run_command: /app/bin/cream_social eval "CreamSocial.Release.migrate()"
+  run_command: /app/bin/zipin eval "CreamSocial.Release.migrate()"
   envs:
   - key: MIX_ENV
     value: prod
