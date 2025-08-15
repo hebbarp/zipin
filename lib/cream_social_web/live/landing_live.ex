@@ -78,10 +78,10 @@ defmodule CreamSocialWeb.LandingLive do
 
   defp get_upcoming_cities do
     [
-      %{name: "Mumbai", eta: "September 2024", status: "next"},
-      %{name: "Delhi", eta: "October 2024", status: "planning"},
-      %{name: "Pune", eta: "November 2024", status: "planning"},
-      %{name: "Hyderabad", eta: "December 2024", status: "planning"},
+      %{name: "Mumbai", eta: "September 2025", status: "next"},
+      %{name: "Delhi", eta: "October 2025", status: "planning"},
+      %{name: "Pune", eta: "November 2025", status: "planning"},
+      %{name: "Hyderabad", eta: "December 2025", status: "planning"},
       %{name: "Chennai", eta: "January 2025", status: "planning"}
     ]
   end
