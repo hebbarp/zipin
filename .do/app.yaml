@@ -32,6 +32,27 @@ services:
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
     type: SECRET
+jobs:
+- name: db-migrate
+  kind: POST_DEPLOY
+  dockerfile_path: Dockerfile
+  github:
+    branch: main
+    repo: hebbarp/zipin
+  source_dir: /
+  run_command: /app/bin/cream_social eval "CreamSocial.Release.migrate()"
+  envs:
+  - key: MIX_ENV
+    value: prod
+  - key: PHX_HOST
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+  - key: SECRET_KEY_BASE
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
 databases:
 - engine: PG
   name: cream-social-db
