@@ -42,9 +42,13 @@ if config_env() == :prod do
     
     config :zipin, CreamSocial.Repo,
       url: database_url,
-      pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+      pool_size: String.to_integer(System.get_env("POOL_SIZE") || "5"),
       ssl: true,
-      ssl_opts: [verify: :verify_none]
+      ssl_opts: [
+        verify: :verify_peer,
+        versions: [:"tlsv1.2", :"tlsv1.3"],
+        ciphers: :ssl.cipher_suites(:default, :"tlsv1.2")
+      ]
   else
     # SQLite fallback configuration
     config :zipin, CreamSocial.Repo,
