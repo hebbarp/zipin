@@ -7,10 +7,21 @@ defmodule CreamSocial.Application do
 
   @impl true
   def start(_type, _args) do
+    # Auto-migrate in production
+    if Mix.env() == :prod do
+      try do
+        CreamSocial.Release.migrate()
+        CreamSocial.Release.seed()
+      rescue
+        e -> 
+          IO.puts("Migration/seeding error: #{inspect(e)}")
+      end
+    end
+    
     children = [
       CreamSocialWeb.Telemetry,
       CreamSocial.Repo,
-  {DNSCluster, query: Application.get_env(:zipin, :dns_cluster_query) || :ignore},
+      {DNSCluster, query: Application.get_env(:zipin, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: CreamSocial.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: CreamSocial.Finch},
