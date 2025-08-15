@@ -26,9 +26,7 @@ defmodule CreamSocialWeb.Router do
     live "/", LandingLive, :index
     get "/home", PageController, :home
     
-    # Public pages - anyone can view content
-    live "/stream", StreamLive.Index, :index
-    live "/stream/:id", StreamLive.Show, :show
+    # Public pages - anyone can view content  
     live "/places/:id", PlaceLive, :show
     live "/events/:id", EventLive, :show
     live "/profile/:id", ProfileLive.Show, :show
@@ -54,6 +52,10 @@ defmodule CreamSocialWeb.Router do
     live "/messages", MessagesLive.Index, :index
     live "/messages/:user_id", MessagesLive.Index, :chat
     live "/settings", SettingsLive.Index, :index
+    
+    # Stream pages - login required
+    live "/stream", StreamLive.Index, :index
+    live "/stream/:id", StreamLive.Show, :show
   end
 
   defp fetch_current_user(conn, _opts) do

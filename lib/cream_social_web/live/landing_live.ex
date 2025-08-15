@@ -59,13 +59,13 @@ defmodule CreamSocialWeb.LandingLive do
         name: "Jayanagar", 
         icon: "🏛️", 
         vibe: "Heritage",
-        image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+        image: "https://images.unsplash.com/photo-1605640840605-14ac1855827b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
       },
       %{
         name: "HSR Layout", 
         icon: "🏘️", 
         vibe: "Family Zone",
-        image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+        image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
       },
       %{
         name: "MG Road", 
