@@ -55,7 +55,7 @@ jobs:
     type: SECRET
 databases:
 - engine: PG
-  name: cream-social-db
+  name: zipin-db
   num_nodes: 1
   size: db-s-dev-database
   version: "15"
