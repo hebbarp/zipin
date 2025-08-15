@@ -70,7 +70,8 @@ if config_env() == :prod do
   config :zipin, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :zipin, CreamSocialWeb.Endpoint,
-    url: [host: host, port: port, scheme: "https"],
+    url: [host: host, port: 443, scheme: "https"],
+    force_ssl: [rewrite_on: [:x_forwarded_proto]],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
