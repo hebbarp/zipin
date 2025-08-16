@@ -482,15 +482,19 @@
                     <% end %>
                   </div>
                   <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span><%= if post.user.company, do: "#{post.user.company} • " %><%= time_ago(post.published_at) %></span>
+                    <span><%= if post.user && post.user.company, do: "#{post.user.company} • " %><%= time_ago(post.published_at) %></span>
                   </div>
                   <div class="flex items-center space-x-4 text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    <%= if post.user do %>
                     <.link navigate={~p"/users/#{post.user.id}/followers"} class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                       <span class="font-medium"><%= post.follow_info.followers_count %></span> followers
                     </.link>
                     <.link navigate={~p"/users/#{post.user.id}/following"} class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                       <span class="font-medium"><%= post.follow_info.following_count %></span> following
                     </.link>
+                    <% else %>
+                    <span class="text-xs">User not available</span>
+                    <% end %>
                   </div>
                 </div>
               </div>
