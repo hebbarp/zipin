@@ -1065,6 +1065,47 @@
   </div>
 </div>
 
+<style>
+/* Hide broken images to prevent 404 errors from breaking layout */
+img[src*="/uploads/"]:not([src=""]) {
+  display: block;
+}
+img[src*="/uploads/"]:not([src=""]):not([src$=".jpg"]):not([src$=".jpeg"]):not([src$=".png"]):not([src$=".gif"]) {
+  display: none;
+}
+/* Hide on error */
+img[src*="/uploads/"] {
+  background: #f3f4f6;
+  min-height: 40px;
+  border-radius: 6px;
+}
+</style>
+
+<script>
+// Hide broken upload images
+document.addEventListener('DOMContentLoaded', function() {
+  const images = document.querySelectorAll('img[src*="/uploads/"]');
+  images.forEach(img => {
+    img.onerror = function() {
+      this.style.display = 'none';
+      // Replace with placeholder if it's a profile pic
+      if (this.closest('.w-10, .w-8')) {
+        const placeholder = document.createElement('div');
+        placeholder.className = this.className.replace('object-cover', '');
+        placeholder.style.backgroundColor = '#e5e7eb';
+        placeholder.style.display = 'flex';
+        placeholder.style.alignItems = 'center';
+        placeholder.style.justifyContent = 'center';
+        placeholder.style.fontSize = '12px';
+        placeholder.style.color = '#6b7280';
+        placeholder.textContent = '👤';
+        this.parentNode.replaceChild(placeholder, this);
+      }
+    };
+  });
+});
+</script>
+
 <script>
   window.addEventListener("phx:clear-form", (e) => {
     const form = document.getElementById("new-post-form");
