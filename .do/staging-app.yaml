@@ -1,9 +1,9 @@
-name: zipin-production
+name: zipin-staging
 services:
 - name: web
   dockerfile_path: Dockerfile
   github:
-    branch: main
+    branch: develop
     deploy_on_push: true
     repo: hebbarp/zipin
   health_check:
@@ -39,7 +39,7 @@ jobs:
   kind: POST_DEPLOY
   dockerfile_path: Dockerfile
   github:
-    branch: main
+    branch: develop
     repo: hebbarp/zipin
   source_dir: /
   run_command: /app/bin/zipin eval "CreamSocial.Release.migrate()"
@@ -59,7 +59,7 @@ jobs:
   kind: POST_DEPLOY
   dockerfile_path: Dockerfile
   github:
-    branch: main
+    branch: develop
     repo: hebbarp/zipin
   source_dir: /
   run_command: /app/bin/zipin eval "CreamSocial.Release.seed()"
@@ -77,7 +77,7 @@ jobs:
     type: SECRET
 databases:
 - engine: PG
-  name: zipin-production-db
+  name: zipin-staging-db
   num_nodes: 1
   size: db-s-dev-database
   version: "15"
